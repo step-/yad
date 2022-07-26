@@ -311,6 +311,7 @@ typedef struct {
   gboolean output_by_row;
   guint focus_field;
   gboolean cycle_read;
+  gboolean no_wrap;
 } YadFormData;
 
 #ifdef HAVE_HTML
