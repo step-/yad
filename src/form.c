@@ -730,7 +730,7 @@ form_create_widget (GtkWidget * dlg)
       gtk_grid_set_column_spacing (GTK_GRID (tbl), 5);
 #endif
 
-      if (options.form_data.scroll)
+      if (options.form_data.scroll || options.form_data.no_wrap)
         {
           GtkWidget *sw = gtk_scrolled_window_new (NULL, NULL);
           gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_NONE);
