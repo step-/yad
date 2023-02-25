@@ -12,10 +12,11 @@ GNU GPL3 is license to both yadL and yadU. Copyright notices in yadL source code
 
 		yad maintenance branch, aka yad-maintain-gtk2, yadL, (C) 2019-2023 step
 
-## New features of yadL
+## New yadL features
 
 yadL of its own adds the following new features not included in yadU, to the best of my knowledge.
 Refer to [yadL commit log](https://github.com/step-/yad/commits) for more details.
+See also [Preparing yadL scripts for yadU](https://github.com/step-/yad/wiki/Preparing-yadL-scripts-for-yadU) in the yadL Wiki.
 
 - option `--icon-width=SIZE` is a deprecated alias for `--icon-size`
 - new option `--center-keep`
@@ -37,6 +38,7 @@ Several bugs that affected the parent project when it was forked have been fixed
 * some print dialog issues⁽¹⁾ [0.42.38]
 * forcefully close a notebook dialog on exit if some tab has hung
 * unpredictably, notebook tabs are too small [0.42.43]
+* form button syntax [0.42.75]
 
 ## Frozen or untested features
 
@@ -44,7 +46,7 @@ Several bugs that affected the parent project when it was forked have been fixed
 
 ## Diverged features
 
-See the _New features of yadL_ and _Notes_ sections.
+See the _New yadL features_ and _Notes_ sections.
 
 ## Features and bug fixes backported from yadU to yadL
 
