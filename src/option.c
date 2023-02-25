@@ -770,25 +770,6 @@ add_field (const gchar * option_name, const gchar * value, gpointer data, GError
 
   fld = g_new0 (YadField, 1);
 
-  if (*fstr[0])
-    {
-      gchar **names = g_strsplit (fstr[0], options.common_data.item_separator, 3);
-      if (names[1] && names[2])
-        {
-          fld->name = g_strdup_printf ("%s%s%s", names[0], options.common_data.item_separator, names[1]);
-          fld->tip = g_strdup (names[2]);
-        }
-      else
-        {
-          fld->name = g_strdup (names[0]);
-          if (names[1])
-            fld->tip = g_strdup (names[1]);
-        }
-      g_strfreev (names);
-    }
-  else
-    fld->name = g_strdup ("");
-
   if (fstr[1])
     {
       gchar *atid;
@@ -855,6 +836,32 @@ add_field (const gchar * option_name, const gchar * value, gpointer data, GError
     }
   else
     fld->type = YAD_FIELD_SIMPLE;
+
+  if (*fstr[0])
+    {
+      gchar **names = g_strsplit (fstr[0], options.common_data.item_separator, 3);
+      if (names[1] && names[2]) /* label!icon!tooltip:BTN */
+        {
+          fld->name = g_strdup_printf ("%s%s%s", names[0], options.common_data.item_separator, names[1]);
+          fld->tip = g_strdup (names[2]);
+        }
+      else if (names[1]) /* label!icon:BTN ELSE label!tooltip */
+        {
+            if (fld->type == YAD_FIELD_BUTTON || fld->type == YAD_FIELD_FULL_BUTTON)
+              fld->name = g_strdup_printf ("%s%s%s", names[0], options.common_data.item_separator, names[1]); /* label!icon */
+            else
+              {
+                fld->name = g_strdup (names[0]); /* label */
+                fld->tip  = g_strdup (names[1]); /* tooltip */
+              }
+        }
+      else
+        fld->name = g_strdup (names[0]);
+      g_strfreev (names);
+    }
+  else
+    fld->name = g_strdup ("");
+
   options.form_data.fields = g_slist_append (options.form_data.fields, fld);
 
   g_strfreev (fstr);
