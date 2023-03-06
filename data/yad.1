@@ -16,7 +16,7 @@ from the user, from all manner of shell scripts.
 
 .SH OPTIONS
 This program follows the usual GNU command line syntax, with long
-options starting with two dashes (`-').
+options starting with two dashes (\-\-).
 
 .SS Dialog options
 .TP
@@ -143,7 +143,7 @@ Hide main widget with expander. \fITEXT\fP is an optional argument with expander
 .B \-\-button=\fIBUTTON:ID\fP
 Add the dialog button. May be used multiple times. \fIID\fP is an exit code or a command.
 \fIBUTTON\fP may be gtk stock item name for predefined buttons (like gtk-close or gtk-ok) or text in a form
-\fILABEL[!ICON[!TOOLTIP]]\fP where `!' is an item separator.
+\fILABEL[!ICON[!TOOLTIP]]\fP where \fB!\fP is an item separator.
 Full list of stock items may be found in gtk-demo program, in snippet called \fI"Stock Items and Icon Browser"\fP.
 If no buttons specified \fIOK\fP and \fICancel\fP buttons used. See \fBEXIT STATUS\fP section for more.
 If \fIID\fP have a non-numeric value it treats like a command and click on such button doesn't close the dialog.
@@ -212,8 +212,8 @@ Run dialog window maximized.
 Run dialog in fullscreen mode. This option may not work on all window managers.
 .TP
 .B \-\-splash
-Open window with "splashscreen" window hints. For details see description of \fI_NET_WM_WINDOW_TYPE_SPLASH\fP
-in EWMH specification. The behavior of dialog with this option is HIGHLY DEPENDS on settings of your window manager.
+Open window with "splashscreen" window hints. For details see the description of \fI\_NET\_WM\_WINDOW\_TYPE\_SPLASH\fP
+in the EWMH specification. Note that dialog behavior becomes highly depedent on the window manager.
 .TP
 .B \-\-no-focus
 Dialog window never take focus.
@@ -272,7 +272,7 @@ Set the calendar month.
 Set the calendar year.
 .TP
 .B \-\-date-format=\fIPATTERN\fP
-Set the format for the returned date. By default is `%x'. See \fIstrftime(3)\fP for more details.
+Set the format for the returned date. By default is \fB%x\fP. See \fIstrftime(3)\fP for more details.
 .TP
 .B \-\-show-weeks
 Show the week numbers at the left side of calendar.
@@ -407,7 +407,7 @@ Use compact mode. Icon and name of each item is placed in a single row.
 Activate items by single mouse click. This option may not works properly in case of compact mode.
 .TP
 .B \-\-term
-Pattern for terminal. By default use `xterm \-e %s' where %s replaced by the command.
+Pattern for terminal. By default use \fBxterm \-e %s\fP where %s replaced by the command.
 .PP
 If both directory and stdin specified, content of iconbox will be read from directory.
 
@@ -448,7 +448,7 @@ Set the preview text.
 Separate output of selected font description.
 .TP
 .B \-\-separator=\fISTRING\fP
-Set output separator character. Default is `|'.
+Set output separator character. Default is \fB|\fP.
 .TP
 .B \-\-quoted-output
 Output data will be in shell-style quotes.
@@ -462,11 +462,11 @@ Add field to form. Type may be \fIH\fP, \fIRO\fP, \fINUM\fP, \fICHK\fP, \fICB\fP
 .br
 \fBRO\fP - field is in read-only mode.
 .br
-\fBNUM\fP - field is a numeric. Initial value format for this field is \fIVALUE[!RANGE[!STEP![PREC]]]\fP, where \fIRANGE\fP must be in form \fIMIN..MAX\fP. `!' is a default item separator. \fIPREC\fP is a precision for decimals.
+\fBNUM\fP - field is a numeric. Initial value format for this field is \fIVALUE[!RANGE[!STEP![PREC]]]\fP, where \fIRANGE\fP must be in form \fIMIN..MAX\fP. \fB!\fP is a default item separator. \fIPREC\fP is a precision for decimals.
 .br
 \fBCHK\fP - checkbox field. Initial value is a case insensitive boolean constant (\fITRUE\fP or \fIFALSE\fP).
 .br
-\fBCB\fP - combo-box field. Initial value is a list \fIVAL1!VAL2!...\fP. The separator is the same as in \fINUM\fP field. Value started with `^' threats as default for combo-box.
+\fBCB\fP - combo-box field. Initial value is a list \fIVAL1!VAL2!...\fP. The separator is the same as in \fINUM\fP field. Value started with \fB^\fP threats as default for combo-box.
 .br
 \fBCBE\fP - editable combo-box field. Initial value same as for combo-box.
 .br
@@ -494,7 +494,7 @@ Add field to form. Type may be \fIH\fP, \fIRO\fP, \fINUM\fP, \fICHK\fP, \fICB\fP
 .br
 \fBCLR\fP - color selection button. Output values for this field generates in the same manner as for color dialog.
 .br
-\fBBTN\fP - button field. Label text may be formatted as \fILABEL[!ICON[!TOOLTIP]]\fP where `!' is an item separator. \fILABEL\fP is the text of a button label or a gtk stock id. \fIICON\fP is a button icon (stock id or file name). \fITOOLTIP\fP is the text of an optional help popup tooltip. Initial value is a command that runs when the button is clicked. Special symbols \fI%N\fP (percent followed by a number) in command will be replaced by the value of the \fIN\fPth field. If command starts with \fI@\fP, the output of command will be parsed and lines that start with \fIM:\fP (a number followed by colon) will set the new value of the \fIM\fPth field.
+\fBBTN\fP - button field. Label text may be formatted as \fILABEL[!ICON[!TOOLTIP]]\fP where \fB!\fP is an item separator. \fILABEL\fP is the text of a button label or a gtk stock id. \fIICON\fP is a button icon (stock id or file name). \fITOOLTIP\fP is the text of an optional help popup tooltip. Initial value is a command that runs when the button is clicked. Special symbols \fI%N\fP (percent followed by a number) in command will be replaced by the value of the \fIN\fPth field. If command starts with \fI@\fP, the output of command will be parsed and lines that start with \fIM:\fP (a number followed by colon) will set the new value of the \fIM\fPth field.
 \fI@ID\fP can be used instead of \fI%N\fP and \fPM:\fP.
 A quoting style for value when \fIsh -c\fP is used \- single quotes around command and double quotes around -c argument.
 .br
@@ -515,7 +515,7 @@ Set alignment of field labels. Possible types are \fIleft\fP, \fIcenter\fP or \f
 Set number of columns in form. Fields will be placed from top to bottom.
 .TP
 .B \-\-separator=\fISTRING\fP
-Set output separator character. Default is `|'.
+Set output separator character. Default is \fB|\fP.
 .TP
 .B \-\-focus-field=\fINUMBER\fP
 Set focused field.
@@ -527,7 +527,7 @@ Cycled reading of stdin data. Sending FormFeed character clears the form. This s
 Align button field labels according to \fI\-\-align\fP settings.
 .TP
 .B \-\-item-separator=\fISTRING\fP
-Set separator character for combo-box or scale values. Default is `!'.
+Set separator character for combo-box or scale values. Default is \fB!\fP.
 .TP
 .B \-\-date-format=\fIPATTERN\fP
 Set the format for the date fields (same as in calendar dialog).
@@ -687,13 +687,13 @@ Set the list of ellipsized columns. \fILIST\fP must be a string of numbers separ
 .B \-\-dclick-action=\fICMD\fP
 Set the \fICMD\fP as a double-click command. When user double-clicked on row, \fICMD\fP will be launched with values of all columns as an arguments. By default double-click selects row and act as \fIOK\fP button for simple lists, set the checkbox if \fI\-\-checklist\fP specified and do nothing when list run with \fI\-\-multiple\fP option.
 When double-click specified \fIEnter\fP acts as a double-click and \fICtrl+Enter\fP acts as an \fIOK\fP button.
-\fICMD\fP may contain a special character `%s' for setting a position for arguments. By default arguments will be concatenated to the end of \fICMD\fP.
+\fICMD\fP may contain a special character \fB%s\fP for setting a position for arguments. By default arguments will be concatenated to the end of \fICMD\fP.
 If \fICMD\fP starts with \fI@\fP, its output will replace values of current row.
 This option doesn't work with \fI\-\-editable\fP.
 .TP
 .B \-\-select-action=\fICMD\fP
 Set the \fICMD\fP as a action when selection is changed. \fICMD\fP will be launched with values of all columns as an arguments.
-\fICMD\fP may contain a special character `%s' for setting a position for arguments. By default arguments will be concatenated to the end of \fICMD\fP.
+\fICMD\fP may contain a special character \fB%s\fP for setting a position for arguments. By default arguments will be concatenated to the end of \fICMD\fP.
 This option doesn't work with \fI\-\-multiple\fP.
 .TP
 .B \-\-row-action=\fICMD\fP
@@ -739,7 +739,7 @@ Set the key of the children.
 .TP
 .B \-\-tab=\fITEXT\fP
 Add tab with specified label to notebook. \fITEXT\fP may be in a form \fILABEL[!ICON[!TOOLTIP]]\fP
-where `!' is an item separator.
+where \fB!\fP is an item separator.
 .TP
 .B \-\-tab-pos=\fITYPE\fP
 Set the tabs position. Value may be \fItop\fP, \fIbottom\fP, \fIleft\fP, or \fIright\fP. Default is  \fItop\fP.
@@ -806,7 +806,7 @@ See \fBNOTEBOOK and PANED\fP section for more about paned dialog.
 .B \-\-size=\fIVALUE\fP
 Set initial size of picture. Available values are \fIfit\fP for fitting image in window or \fIorig\fP for show picture in original size.
 .TP
-.B \-\-inc=\fiNUMBER\fp
+.B \-\-inc=\fINUMBER\fP
 Set increment value for scaling image.
 .TP
 .B \-\-filename=\fIFILENAME\fP
@@ -1081,23 +1081,23 @@ There are two special commands - \fImenu\fP for popup user defined menu and \fIq
 Set popup menu for notification icon.
 STRING must be in form \fIname1[!action1[!icon1]]|name2[!action2[!icon2]]...\fP.
 Empty name add separator to menu.
-Separator character for values (e.g. `|') sets with \-\-separator argument.
-Separator character for menu items (e.g. `!') sets with \-\-item-separator argument.
+Separator character for values (e.g. \fB|\fP) sets with \-\-separator argument.
+Separator character for menu items (e.g. \fB!\fP) sets with \-\-item-separator argument.
 .TP
 .B quit
 Exit the program. Middle click on icon also send \fIquit\fP command.
 
 .SH ENVIRONMENT VARIABLES
 .TP
-.B YAD_OPTIONS
+.B YAD\_OPTIONS
 This variable sets default options for \fIyad\fP. All options in this
 variable can be redefined from the command line.
 .TP
-.B YAD_PID
+.B YAD\_PID
 This variable holds the value of the current dialog's pid. It is exported to all
 children of the dialog.
 .TP
-.B YAD_XID
+.B YAD\_XID
 This variable holds the value of the current dialog's X Window ID. It is exported to all
 children of the dialog but it is not set in print and notification dialogs,
 and in dialogs that plug into a notebook or paned dialog.
@@ -1126,7 +1126,7 @@ The dialog has been closed by pressing \fIEsc\fP or used the window functions to
 .TP
 Exit codes for user-specified buttons must be specified in command line. Even exit code mean to print result, odd just return exit code.
 
-.SH WIDGETS NAMES
+.SH WIDGET NAMES
 .TP
 The look and feel of yad's dialogs can be customized through gtkrc file. Here is the names of yad's widgets:
 
