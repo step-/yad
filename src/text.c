@@ -433,7 +433,6 @@ GtkWidget *
 text_create_widget (GtkWidget * dlg)
 {
   GtkWidget *w;
-  PangoFontDescription *fd;
 
   w = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (w), GTK_SHADOW_ETCHED_IN);
@@ -466,30 +465,42 @@ text_create_widget (GtkWidget * dlg)
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (text_view), GTK_WRAP_WORD_CHAR);
 
 #if GTK_CHECK_VERSION(3,0,0)
-  if (/*options.common_data.font ||*/ options.text_data.fore || options.text_data.back)
+  gtk_text_view_set_monospace (GTK_TEXT_VIEW (text_view), TRUE);
+
+  if (options.common_data.font || options.text_data.fore || options.text_data.back)
     {
       GtkCssProvider *provider;
       GtkStyleContext *context;
       GString *css;
 
-      css = g_string_new ("textview, textview text {\n");
-      /* if (options.common_data.font) */
-      /*   g_string_append_printf (css, " font: %s;\n", options.common_data.font); */
+      css = g_string_new (".view, .view text {\n");
+      if (options.common_data.font)
+        {
+          gchar *font = pango_to_css (options.common_data.font);
+          g_string_append_printf (css, "font: %s;\n", font);
+          g_free (font);
+        }
       if (options.text_data.fore)
-        g_string_append_printf (css, " color: %s;\n", options.text_data.fore);
+        g_string_append_printf (css, "color: %s;\n", options.text_data.fore);
       if (options.text_data.back)
-        g_string_append_printf (css, " background-color: %s;\n", options.text_data.back);
+        g_string_append_printf (css, "background-color: %s;\n", options.text_data.back);
       g_string_append (css, "}\n");
 
       provider = gtk_css_provider_new ();
       gtk_css_provider_load_from_data (provider, css->str, -1, NULL);
       context = gtk_widget_get_style_context (text_view);
-      gtk_style_context_add_provider (context, GTK_STYLE_PROVIDER (provider),
-                                      GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+      gtk_style_context_add_provider (context, GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
       g_string_free (css, TRUE);
     }
 #else
+  {
+    PangoFontDescription *fd;
+    fd = pango_font_description_from_string (options.common_data.font ? options.common_data.font : "Monospace");
+    gtk_widget_modify_font (text_view, fd);
+    pango_font_description_free (fd);
+  }
+
   if (options.text_data.fore)
     {
       GdkColor clr;
@@ -542,19 +553,6 @@ text_create_widget (GtkWidget * dlg)
         g_printerr (_("Theme %s not found\n"), options.source_data.theme);
     }
 #endif
-
-  /* set font */
-  if (options.common_data.font)
-    fd = pango_font_description_from_string (options.common_data.font);
-  else
-    fd = pango_font_description_from_string ("Monospace");
-
-#if GTK_CHECK_VERSION(3,0,0)
-  UNDEPR (gtk_widget_override_font, text_view, fd);
-#else
-  gtk_widget_modify_font (text_view, fd);
-#endif
-  pango_font_description_free (fd);
 
 #ifdef HAVE_SPELL
   if (options.common_data.enable_spell)
