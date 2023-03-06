@@ -124,7 +124,7 @@ Version 10.1
 Version 10.0
 
 - `[ ]` many improvements in text-info dialog
-  - `[?]` uses monospace font by default
+  - `[+]` uses monospace font by default [0.42.76]
   - `[ ]` added search-bar instead of popup search field (can be disabled)
   - `[ ]` added more GtkSourceView capabilities (use --help-source to see full list of those options)
   - `[ ]` added in-place editing and file operations throug popup menu or keybindings
