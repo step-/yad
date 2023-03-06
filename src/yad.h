@@ -678,6 +678,10 @@ gchar *print_bool_val (gboolean val);
 gint run_command_sync (gchar *cmd, gchar **out, GtkWidget *w);
 void run_command_async (gchar *cmd);
 
+#if GTK_CHECK_VERSION(3,0,0)
+gchar *pango_to_css (gchar *font);
+#endif
+
 void open_uri (const gchar *uri);
 
 static inline void
