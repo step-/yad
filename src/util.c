@@ -380,12 +380,13 @@ YadNTabs *
 get_tabs (key_t key, gboolean create)
 {
   YadNTabs *t = NULL;
-  int shmid, i;
+  int shmid, i, max_tab;
 
   /* get shared memory */
+  max_tab = settings.max_tab + 1;
   if (create)
     {
-      if ((shmid = shmget (key, (settings.max_tab + 1) * sizeof (YadNTabs), IPC_CREAT | IPC_EXCL | 0644)) == -1)
+      if ((shmid = shmget (key, max_tab * sizeof (YadNTabs), IPC_CREAT | IPC_EXCL | 0644)) == -1)
         {
           g_printerr ("yad: cannot create shared memory for key %d: %s\n", key, strerror (errno));
           return NULL;
@@ -393,7 +394,7 @@ get_tabs (key_t key, gboolean create)
     }
   else
     {
-      if ((shmid = shmget (key, (settings.max_tab + 1) * sizeof (YadNTabs), 0)) == -1)
+      if ((shmid = shmget (key, max_tab * sizeof (YadNTabs), 0)) == -1)
         {
           if (errno != ENOENT)
             g_printerr ("yad: cannot get shared memory for key %d: %s\n", key, strerror (errno));
@@ -402,7 +403,7 @@ get_tabs (key_t key, gboolean create)
     }
 
   /* attach shared memory */
-  if ((t = shmat (shmid, NULL, 0)) == (YadNTabs *) - 1)
+  if ((t = shmat (shmid, NULL, 0)) == (YadNTabs *) -1)
     {
       g_printerr ("yad: cannot attach shared memory for key %d: %s\n", key, strerror (errno));
       return NULL;
@@ -411,7 +412,7 @@ get_tabs (key_t key, gboolean create)
   /* initialize memory */
   if (create)
     {
-      for (i = 0; i < settings.max_tab + 1; i++)
+      for (i = 1; i < max_tab; i++)
         {
           t[i].pid = -1;
           t[i].xid = 0;
