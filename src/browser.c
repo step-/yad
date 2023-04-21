@@ -217,9 +217,11 @@ main (gint argc, gchar * argv[])
   GtkTreeViewColumn *col;
   GtkCellRenderer *r;
   GtkWidget *w, *p, *box, *t;
+  gboolean ver = FALSE;
   gboolean all = FALSE, symbolic = FALSE, interactive = FALSE;
 
   GOptionEntry entrs[] = {
+    { "version", 'v', 0, G_OPTION_ARG_NONE, &ver, N_("Print version"), NULL },
     { "all", 'a', 0, G_OPTION_ARG_NONE, &all, _("Show all icons"), NULL },
     { "symbolic", 's', 0, G_OPTION_ARG_NONE, &symbolic, _("Show only symbolic icons"), NULL },
     { "interactive", 'i', 0, G_OPTION_ARG_NONE, &interactive, _("Select and print icon on double-click"), NULL },
@@ -239,6 +241,12 @@ main (gint argc, gchar * argv[])
 
   /* initialize GTK+ and parse the command line arguments */
   gtk_init_with_args (&argc, &argv, _("- Icon browser"), entrs, GETTEXT_PACKAGE, NULL);
+
+  if (ver)
+    {
+      g_print ("%s (GTK+ %d.%d.%d)\n", PACKAGE_VERSION, gtk_major_version, gtk_minor_version, gtk_micro_version);
+      return 0;
+    }
 
   if (all)
     {
