@@ -816,7 +816,7 @@ main (gint argc, gchar ** argv)
   /* check for current GDK backend */
 #ifdef GDK_WINDOWING_X11
 #if !GTK_CHECK_VERSION(3,0,0)
-  static gboolean is_x11 = TRUE;
+  is_x11 = TRUE;
 #else
   if (GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
     is_x11 = TRUE;
