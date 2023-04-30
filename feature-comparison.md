@@ -70,6 +70,7 @@ Abbreviations:
 
 Version 12.4?  (yadU WIP)
 
+- `[+]` 2210136 fix option parsing in icon browser [0.42.78]
 - `[+]` d7ded23 improve run\_command\_sync for avoiding possible race conditions [0.42.67]
 - `[+]` 1d402f7 add some null-pointer checks in form dialog code [0.42.67]
 - `[+]` ff81778 remove some warnings [0.42.66]
