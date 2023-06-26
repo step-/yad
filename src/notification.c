@@ -102,16 +102,26 @@ timeout_cb (gpointer data)
 static void
 set_icon (void)
 {
-  GdkPixbuf *pixbuf;
+  GdkPixbuf *pixbuf = NULL;
   GError *err = NULL;
-
-  if (icon == NULL)
+  gboolean b;
+  GtkStockItem sit;
+  if (icon == NULL || *icon == '\0')
     {
       UNDEPR (gtk_status_icon_set_from_icon_name, status_icon, "yad");
       return;
     }
 
-  if (g_file_test (icon, G_FILE_TEST_EXISTS))
+  SETUNDEPR (b, gtk_stock_lookup, icon, &sit);
+  if (b)
+    {
+    static GtkWidget *button = NULL;
+    if (button == NULL)
+      button = gtk_button_new ();
+
+      SETUNDEPR (pixbuf, gtk_widget_render_icon, button, sit.stock_id, YAD_SMALL_ICON, "");
+    }
+  else if (g_file_test (icon, G_FILE_TEST_EXISTS))
     {
       gint isize = (options.common_data.icon_size > 0) ? options.common_data.icon_size : 16;
 
@@ -121,16 +131,14 @@ set_icon (void)
           g_printerr (_("Could not load notification icon '%s': %s\n"), icon, err->message);
           g_clear_error (&err);
         }
-      if (pixbuf)
-        {
-          UNDEPR (gtk_status_icon_set_from_pixbuf, status_icon, pixbuf);
-          g_object_unref (pixbuf);
-        }
-      else
-        UNDEPR (gtk_status_icon_set_from_icon_name, status_icon, "yad");
     }
-  else
-    UNDEPR (gtk_status_icon_set_from_icon_name, status_icon, icon);
+    else
+      UNDEPR (gtk_status_icon_set_from_icon_name, status_icon, icon);
+    if (pixbuf)
+      {
+        UNDEPR (gtk_status_icon_set_from_pixbuf, status_icon, pixbuf);
+        g_object_unref (pixbuf);
+      }
 }
 
 static gboolean
@@ -200,27 +208,36 @@ popup_menu_cb (GtkStatusIcon *icon, guint button, guint activate_time, gpointer 
   for (m = menu_data; m; m = m->next)
     {
       MenuData *d = (MenuData *) m->data;
+      GtkStockItem it;
+      gboolean b;
 
       if (d->name)
         {
           if (d->icon)
             {
-              GdkPixbuf *pb = get_pixbuf (d->icon, YAD_SMALL_ICON, TRUE);
-              SETUNDEPR (item, gtk_image_menu_item_new_with_mnemonic, d->name);
-              if (pb)
+              SETUNDEPR (b, gtk_stock_lookup, d->icon, &it);
+              if (b)
                 {
-                  UNDEPR (gtk_image_menu_item_set_image, GTK_IMAGE_MENU_ITEM (item), gtk_image_new_from_pixbuf (pb));
-                  g_object_unref (pb);
+                  SETUNDEPR (item, gtk_image_menu_item_new_from_stock, d->icon, NULL);
+                }
+              else
+                {
+                  GdkPixbuf *pb = get_pixbuf (d->icon, YAD_SMALL_ICON, TRUE);
+                  SETUNDEPR (item, gtk_image_menu_item_new_with_mnemonic, d->name);
+                  if (pb)
+                    {
+                      UNDEPR (gtk_image_menu_item_set_image, GTK_IMAGE_MENU_ITEM (item), gtk_image_new_from_pixbuf (pb));
+                      g_object_unref (pb);
+                    }
                 }
             }
           else
             {
-              GtkStockItem it;
-              gboolean b;
-
               SETUNDEPR (b, gtk_stock_lookup, d->name, &it);
               if (b)
-                SETUNDEPR (item, gtk_image_menu_item_new_from_stock, d->name, NULL) /*;*/
+                {
+                  SETUNDEPR (item, gtk_image_menu_item_new_from_stock, d->name, NULL);
+                }
               else
                 item = gtk_menu_item_new_with_mnemonic (d->name);
             }

@@ -491,7 +491,18 @@ cell_set_data (GtkTreeIter *it, guint num, gchar *data)
       }
     case YAD_COLUMN_IMAGE:
       {
-        GdkPixbuf *pb = get_pixbuf (data, YAD_SMALL_ICON, FALSE);
+        gboolean b;
+        GdkPixbuf *pb;
+        GtkStockItem sit;
+        SETUNDEPR (b, gtk_stock_lookup, data, &sit);
+        if (b)
+          {
+            SETUNDEPR (pb, gtk_widget_render_icon, list_view, sit.stock_id, YAD_SMALL_ICON, "");
+          }
+        else
+          {
+            pb = get_pixbuf (data, YAD_SMALL_ICON, FALSE);
+          }
         if (pb)
           {
             gtk_tree_store_set (GTK_TREE_STORE (model), it, num, pb, -1);

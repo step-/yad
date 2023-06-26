@@ -453,7 +453,7 @@ get_label (gchar *str, guint border, GtkWidget *w)
   if (b)
     {
       l = gtk_label_new_with_mnemonic (it.label);
-      i = gtk_image_new_from_pixbuf (get_pixbuf (it.stock_id, YAD_SMALL_ICON, TRUE));
+      SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, YAD_SMALL_ICON);
     }
   else
     {
@@ -467,7 +467,16 @@ get_label (gchar *str, guint border, GtkWidget *w)
         }
 
       if (vals[1] && *vals[1])
-        i = gtk_image_new_from_pixbuf (get_pixbuf (vals[1], YAD_SMALL_ICON, TRUE));
+        {
+          SETUNDEPR (b, gtk_stock_lookup, vals[1], &it);
+          if (b)
+            {
+              l = gtk_label_new_with_mnemonic (it.label);
+              SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, YAD_SMALL_ICON);
+            }
+          else
+            i = gtk_image_new_from_pixbuf (get_pixbuf (vals[1], YAD_SMALL_ICON, TRUE));
+        }
     }
 
   if (i)
