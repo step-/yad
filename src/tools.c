@@ -19,7 +19,10 @@
 
 #include <config.h>
 #include <locale.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include <gtk/gtk.h>
+#pragma GCC diagnostic pop
 #include <glib/gi18n.h>
 
 #ifdef HAVE_SPELL
@@ -27,6 +30,8 @@
 #endif
 
 #ifdef HAVE_SOURCEVIEW
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #if GTK_CHECK_VERSION(3,0,0)
 #include <gtksourceview/gtksource.h>
 #else
@@ -37,6 +42,7 @@
 #include <gtksourceview/gtksourcestylescheme.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 #endif
+#pragma GCC diagnostic pop
 #endif /* HAVE_SOURCEVIEW */
 
 #include "cpicker.h"

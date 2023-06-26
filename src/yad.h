@@ -45,6 +45,8 @@
 #endif
 
 #ifdef HAVE_SOURCEVIEW
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #if GTK_CHECK_VERSION(3,0,0)
 #include <gtksourceview/gtksource.h>
 #else
@@ -55,6 +57,7 @@
 #include <gtksourceview/gtksourcestylescheme.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 #endif
+#pragma GCC diagnostic pop
 #endif /* HAVE_SOURCEVIEW */
 
 G_BEGIN_DECLS
