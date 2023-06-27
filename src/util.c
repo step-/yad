@@ -471,7 +471,10 @@ get_label (gchar *str, guint border, GtkWidget *w)
           SETUNDEPR (b, gtk_stock_lookup, vals[1], &it);
           if (b)
             {
-              l = gtk_label_new_with_mnemonic (it.label);
+              if (vals[0] && *vals[0])
+                l = gtk_label_new_with_mnemonic (vals[0]);
+              else if (!vals[0])
+                l = gtk_label_new_with_mnemonic (it.label);
               SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, YAD_SMALL_ICON);
             }
           else
