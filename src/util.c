@@ -453,7 +453,7 @@ get_label (gchar *str, guint border, GtkWidget *w)
   if (b)
     {
       l = gtk_label_new_with_mnemonic (it.label);
-      SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, YAD_SMALL_ICON);
+      SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, GTK_ICON_SIZE_BUTTON);
     }
   else
     {
@@ -475,7 +475,7 @@ get_label (gchar *str, guint border, GtkWidget *w)
                 l = gtk_label_new_with_mnemonic (vals[0]);
               else if (!vals[0])
                 l = gtk_label_new_with_mnemonic (it.label);
-              SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, YAD_SMALL_ICON);
+              SETUNDEPR (i, gtk_image_new_from_stock, it.stock_id, GTK_ICON_SIZE_BUTTON);
             }
           else
             i = gtk_image_new_from_pixbuf (get_pixbuf (vals[1], YAD_SMALL_ICON, TRUE));

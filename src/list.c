@@ -497,7 +497,7 @@ cell_set_data (GtkTreeIter *it, guint num, gchar *data)
         SETUNDEPR (b, gtk_stock_lookup, data, &sit);
         if (b)
           {
-            SETUNDEPR (pb, gtk_widget_render_icon, list_view, sit.stock_id, YAD_SMALL_ICON, "");
+            SETUNDEPR (pb, gtk_widget_render_icon, list_view, sit.stock_id, GTK_ICON_SIZE_MENU, "");
           }
         else
           {

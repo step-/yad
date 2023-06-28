@@ -119,7 +119,7 @@ set_icon (void)
     if (button == NULL)
       button = gtk_button_new ();
 
-      SETUNDEPR (pixbuf, gtk_widget_render_icon, button, sit.stock_id, YAD_SMALL_ICON, "");
+      SETUNDEPR (pixbuf, gtk_widget_render_icon, button, sit.stock_id, GTK_ICON_SIZE_SMALL_TOOLBAR, "");
     }
   else if (g_file_test (icon, G_FILE_TEST_EXISTS))
     {
