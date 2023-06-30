@@ -219,6 +219,7 @@ popup_menu_cb (GtkStatusIcon *icon, guint button, guint activate_time, gpointer 
               if (b)
                 {
                   SETUNDEPR (item, gtk_image_menu_item_new_from_stock, d->icon, NULL);
+                  gtk_menu_item_set_label (GTK_MENU_ITEM (item), d->name);
                 }
               else
                 {
