@@ -321,9 +321,13 @@ handle_stdin (GIOChannel * channel, GIOCondition condition, gpointer data)
                 {
                   gchar *message = g_strcompress (value);
                   if (!options.data.no_markup)
-                    UNDEPR (gtk_status_icon_set_tooltip_markup, status_icon, message) /*;*/
+                    {
+                      UNDEPR (gtk_status_icon_set_tooltip_markup, status_icon, message);
+                    }
                   else
-                    UNDEPR (gtk_status_icon_set_tooltip_text, status_icon, message);
+                    {
+                      UNDEPR (gtk_status_icon_set_tooltip_text, status_icon, message);
+                    }
                   g_free (message);
                 }
               else

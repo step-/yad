@@ -40,6 +40,10 @@ Several bugs that affected the parent project when it was forked have been fixed
 * unpredictably, notebook tabs are too small [0.42.43]
 * form button syntax [0.42.75]
 
+## Known bugs
+
+* (GTK+-2 build only) If the main icon of the notification dialog is a named icon, it does not scale automatically, therefore it looks larger than other icons in the tray. This bug has existed since at least version 0.40.0. It can only be noticed on some notification trays that do not themselves resize the icons they display.
+
 ## Frozen or untested features
 
 * HTML dialog widget - As Fatdog64 Linux no longer packages the Webkit engine, I do not make an effort to maintain or even compile yadL's HTML dialog widget.
