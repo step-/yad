@@ -457,6 +457,10 @@ create_dialog (void)
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dlg), options.data.skip_taskbar);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (dlg), options.data.skip_taskbar);
   gtk_window_set_accept_focus (GTK_WINDOW (dlg), options.data.focus);
+#ifdef HAVE_GTK_LAYER_SHELL
+  if (options.data.focus && (layer != GTK_LAYER_SHELL_LAYER_ENTRY_NUMBER || edge != GTK_LAYER_SHELL_EDGE_ENTRY_NUMBER || corner != GTK_LAYER_SHELL_EDGE_ENTRY_NUMBER))
+    gtk_layer_set_keyboard_mode (GTK_WINDOW (dlg), GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
+#endif
 
   /* create box */
 #if !GTK_CHECK_VERSION(3,0,0)
