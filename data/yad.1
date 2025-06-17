@@ -845,33 +845,33 @@ When option \fB\-\-progress\fP is used yad reads lines of progress data from std
 The initial percentage value of a bar is set by the next available command-line argument.
 .PP
 When at least one option \fB\-\-bar\fP is used yad operates in \fImulti-progress\fP mode
-otherwise it operates in \fIsingle-progress\fP mode, which is compatible with yad version 0.42.x.
+otherwise it operates in \fIsingle-progress\fP mode, which is compatible with yad version 0.42.x. You must not add a \fB\-\-bar\fP option to operate in \fIsingle-progress\fP mode.
 .PP
 Progress bars behave in response to lines that yad reads from its standard input.
 In \fImulti-progress\fP mode lines must start with prefix \fIN:\fP where \fIN\fP is the progress bar number.
-Omit the prefix \fIN:\fP in \fIsingle-progress\fP mode.
+You must omit the prefix \fIN:\fP in \fIsingle-progress\fP mode.
 .PP
-\fI#LABEL\fP after the (possibly omitted) prefix sets the text \fILABEL\fP of the progress bar;
-a numeric value sets the percentage of the progress bar.
+The string \fI#\fPLABEL (with the \fIN:\fP prefix in multi-progress mode) sets the progress bar label to LABEL for whatever the value of LABEL.
+A numeric value sets the percentage of the progress bar.
 .PP
 There are three ways to make a progress bar pulsate.
-The first way is with option \fI\-\-pulsate\fP (single-progress mode).
-In this mode the bar starts pulsating when yad reads the first numeric value, and it never stops.
+The first way is with option \fB\-\-pulsate\fP, and it is reserved to single-progress mode.
+In this mode the bar starts pulsating when yad reads the first data, and it never stops.
 The progress indicator advances automatically.
 The bar will keep pulsating until the dialog is closed (see also option \fI\-\-auto-close).
 .PP
-The second way is with option \fI\-\-bar=LABEL:PERM\fP.
-In this mode the bar starts pulsating when yad reads the word "start", and it stops when yad reads "stop".
+The second way is with option \fB\-\-bar\fP=\fILABEL:PERM\fP.
+In this mode the bar starts auto-pulsating when yad reads the word "start" prefixed by \fIN:\fP, and it stops when yad reads a prefixed "stop".
 The progress indicator advances automatically.
 A stopped bar can be restarted.
 .PP
-The third way is with option \fI\-\-bar=LABEL:PULSE\fP.
-The progress indicator advances a bit when yad reads the next line of input then it stops until another line is read.
+The third way is with option \fB\-\-bar\fP=\fILABEL:PULSE\fP.
+The progress indicator advances a step each time yad reads a prefixed line.
 .TP
 .B \-\-bar=\fILABEL[:TYPE]\fP
-Add a progress bar. \fILABEL\fP is a text label for the progress bar. \fITYPE\fP is a progress bar type.
+Add a progress bar in \fImulti-progress mode\fP. \fILABEL\fP is a text label for the progress bar. \fITYPE\fP is a progress bar type.
 Types are: \fINORM\fP for a normal progress bar, \fIRTL\fP for an inverted progress bar,
-\fIPERM\fP for a restartable, auto-pulsating progress bar, and \fIPULSE\fP for a pulsating progress bar.
+\fIPERM\fP for a restartable, auto-pulsating progress bar, and \fIPULSE\fP for a step-wise pulsating progress bar.
 If option \fB\-\-bar\fP is not used, the progress dialog operates in \fIsingle-progress\fP mode.
 .TP
 .B \-\-vertical
