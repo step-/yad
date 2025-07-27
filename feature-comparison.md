@@ -72,8 +72,15 @@ Abbreviations:
 
 ---
 
-Version 12.4?  (yadU WIP)
+Version ?  (yadU current development)
 
+Version 14.1
+
+Version 14.0
+
+Version 13.0
+
+- `[+]` db438d7 --homogeneous affects form columns too ⁽¹²⁾ [0.42.84]
 - `[+]` 2210136 fix option parsing in icon browser [0.42.78]
 - `[+]` d7ded23 improve run\_command\_sync for avoiding possible race conditions [0.42.67]
 - `[+]` 1d402f7 add some null-pointer checks in form dialog code [0.42.67]
@@ -302,3 +309,5 @@ See the NEWS file for older versions.
 ⁽¹⁰⁾ GTK+-2 cannot discriminate symbolic icons.  Therefore yad icon browser options `--all` and `--symbolic` are ignored.
 
 ⁽¹¹⁾ GTK+-2 `yad-tools --icon --size` always prints the scalable icon name, if available, regardless of the requested size; a similar remark applies to options `--icon --type`.
+
+⁽¹²⁾ This is a **breaking change** for previous forms that relied on columns to remain non-homogeneous. The `--homogeneous` option does not, and never did, apply to GTK+-2 builds.
