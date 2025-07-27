@@ -783,8 +783,8 @@ msgid "Make form scrollable"
 msgstr "Додати прокрутку до форми"
 
 #: ../src/option.c:381
-msgid "Make form fields same height"
-msgstr "Зробити поля форми однакової висоти"
+msgid "Make form field heights the same, and column widths the same"
+msgstr "Зробити висоту та ширину рядків однакового розміру"
 
 #: ../src/option.c:383
 msgid "Order output fields by rows"

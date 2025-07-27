@@ -80,6 +80,7 @@ Version 14.0
 
 Version 13.0
 
+- `[+]` 853484e update documentation [0.42.84]
 - `[+]` db438d7 --homogeneous affects form columns too ⁽¹²⁾ [0.42.84]
 - `[+]` 2210136 fix option parsing in icon browser [0.42.78]
 - `[+]` d7ded23 improve run\_command\_sync for avoiding possible race conditions [0.42.67]
@@ -310,4 +311,4 @@ See the NEWS file for older versions.
 
 ⁽¹¹⁾ GTK+-2 `yad-tools --icon --size` always prints the scalable icon name, if available, regardless of the requested size; a similar remark applies to options `--icon --type`.
 
-⁽¹²⁾ This is a **breaking change** for previous forms that relied on columns to remain non-homogeneous. The `--homogeneous` option does not, and never did, apply to GTK+-2 builds.
+⁽¹²⁾ This is a **breaking change** for previous forms that relied on columns to remain non-homogeneous. The `--homogeneous` option does not, and never did apply to GTK+-2 builds.

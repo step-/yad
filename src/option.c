@@ -346,7 +346,7 @@ static GOptionEntry form_options[] = {
   { "scroll", 0, 0, G_OPTION_ARG_NONE, &options.form_data.scroll,
     N_("Make form scrollable"), NULL },
   { "homogeneous", 0, 0, G_OPTION_ARG_NONE, &options.form_data.homogeneous,
-    N_("Make form fields same height"), NULL },
+    N_("Make form field heights the same, and column widths the same"), NULL },
   { "output-by-row", 0, 0, G_OPTION_ARG_NONE, &options.form_data.output_by_row,
     N_("Order output fields by rows"), NULL },
   { "focus-field", 0, 0, G_OPTION_ARG_INT, &options.form_data.focus_field,
