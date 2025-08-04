@@ -174,6 +174,7 @@ expand_action (gchar *command)
                 case YAD_FIELD_MFILE:
                 case YAD_FIELD_MDIR:
                 case YAD_FIELD_DATE:
+                case YAD_FIELD_INVISIBLE:
                   buf = escape_char ((gchar *) gtk_entry_get_text (GTK_ENTRY (g_slist_nth_data (fields, num))), '"');
                   arg = g_shell_quote (buf ? buf : "");
                   g_free (buf);
@@ -311,6 +312,7 @@ set_field_value (guint num, gchar *value)
     case YAD_FIELD_FILE_SAVE:
     case YAD_FIELD_DIR_CREATE:
     case YAD_FIELD_DATE:
+    case YAD_FIELD_INVISIBLE:
       gtk_entry_set_text (GTK_ENTRY (w), value);
       break;
 
@@ -910,17 +912,26 @@ form_create_widget (GtkWidget * dlg)
     {
       GtkWidget *l, *e;
       GdkPixbuf *pb;
-      guint i, col, row, rows;
+      guint i, col, rows, n_invisible;
+      gint row;
 
       n_fields = g_slist_length (options.form_data.fields);
 
+      /* count invisible fields */
+      for (n_invisible = i = 0; i < n_fields; i++)
+        {
+          YadField *fld = g_slist_nth_data (options.form_data.fields, i);
+          if (fld->type == YAD_FIELD_INVISIBLE)
+            n_invisible++;
+        }
+
       row = col = 0;
-      rows = n_fields / options.form_data.columns;
-      if (n_fields % options.form_data.columns > 0)
+      rows = (n_fields - n_invisible) / options.form_data.columns;
+      if ((n_fields - n_invisible) % options.form_data.columns > 0)
         rows++;
 
 #if !GTK_CHECK_VERSION(3,0,0)
-      tbl = gtk_table_new (n_fields, 2 * options.form_data.columns, FALSE);
+      tbl = gtk_table_new (n_fields - n_invisible, 2 * options.form_data.columns, FALSE);
 #else
       tbl = gtk_grid_new ();
       gtk_grid_set_row_spacing (GTK_GRID (tbl), 5);
@@ -955,6 +966,7 @@ form_create_widget (GtkWidget * dlg)
           l = NULL;
           if (fld->type != YAD_FIELD_CHECK && fld->type != YAD_FIELD_BUTTON &&
               fld->type != YAD_FIELD_FULL_BUTTON && fld->type != YAD_FIELD_LINK &&
+              fld->type != YAD_FIELD_INVISIBLE &&
 #if !GTK_CHECK_VERSION(3,0,0)
               fld->type != YAD_FIELD_SWITCH &&
 #endif
@@ -1036,6 +1048,12 @@ form_create_widget (GtkWidget * dlg)
                 }
 
               gtk_label_set_mnemonic_widget (GTK_LABEL (l), e);
+              fields = g_slist_append (fields, e);
+              break;
+
+            case YAD_FIELD_INVISIBLE:
+              row--;
+              e = gtk_entry_new ();
               fields = g_slist_append (fields, e);
               break;
 
@@ -1597,6 +1615,7 @@ form_print_field (guint fn)
     case YAD_FIELD_FILE_SAVE:
     case YAD_FIELD_DIR_CREATE:
     case YAD_FIELD_DATE:
+    case YAD_FIELD_INVISIBLE:
       if (options.common_data.quoted_output)
         {
           buf = g_shell_quote (gtk_entry_get_text (GTK_ENTRY (g_slist_nth_data (fields, fn))));

@@ -795,6 +795,8 @@ add_field (const gchar * option_name, const gchar * value, gpointer data, GError
         fld->type = YAD_FIELD_HIDDEN;
       else if (strcasecmp (fstr[1], "RO") == 0)
         fld->type = YAD_FIELD_READ_ONLY;
+      else if (strcasecmp (fstr[1], "INV") == 0)
+        fld->type = YAD_FIELD_INVISIBLE;
       else if (strcasecmp (fstr[1], "NUM") == 0)
         fld->type = YAD_FIELD_NUM;
       else if (strcasecmp (fstr[1], "CHK") == 0)
