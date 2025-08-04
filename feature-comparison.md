@@ -16,7 +16,7 @@ YadL is licensed under the GNU General Public License version 3 (GPLv3). Due to 
 
 		yad maintenance branch, aka yad-maintain-gtk2, yadL, (C) 2019-2025 step
 
-## yadL features not found in yadU
+## YadL features not found in yadU
 
 YadL of its own adds the following new features, which, to the best of my knowledge, cannot be found in yadU.
 Refer to the [yadL commit log] for more details.
@@ -32,10 +32,12 @@ See also the [Preparing yadL scripts for yadU] Wiki page.
 - The new `--use-output-prefix` option tags form field output with field `ID` names [0.42.71] (§)213.
 - A new invisible form field type `:INV` [0.42.85].
 - YadL disables form buttons and list items while synchronous user commands are running [0.42.73] (§)221.
+- A Meson build (thanks Dima Krasner @dimakr) [0.42.83].
+- GTK+-3 Layer-shell support using the new options `--layer` and `--edge` (thanks Dima Krasner @dimakr) [0.42.83].
 
 ## Frozen features
 
-Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget. Some YadL versions compiled with Webkit can be found 
+Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget.
 
 ## Historical bug fixes
 
@@ -52,7 +54,7 @@ Several bugs that affect the upstream 0.42.0 yadU release have been fixed. The f
 
 ## Diverged features
 
-See the _New yadL features_ and _Notes_ sections.
+See the _YadL features not found in yadU_ and the _Notes_ sections.
 
 ## Backported features and bug fixes
 
@@ -351,6 +353,7 @@ See the NEWS file for older versions.
 [0.42.75]: https://github.com/step-/yad/releases/tag/0.42.75
 [0.42.76]: https://github.com/step-/yad/releases/tag/0.42.76
 [0.42.78]: https://github.com/step-/yad/releases/tag/0.42.78
+[0.42.83]: https://github.com/step-/yad/releases/tag/0.42.83
 [0.42.84]: https://github.com/step-/yad/releases/tag/0.42.84
 [0.42.85]: https://github.com/step-/yad/releases/tag/0.42.85
 
