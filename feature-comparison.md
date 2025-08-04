@@ -2,64 +2,67 @@
 
 For short, I will use **yadL** for the products of this fork, and **yadU** for the parent project's. [More info](README.md)
 
-yadL version number is formed as 0.42.x where integer "x" indicates some released progress worth mentioning.
-
 Numbered notes are grouped together at the end of this long page.
+
+The symbol (§)N refers to the Pull Request (PR) number N the yadL repository makes to the yadU repository ([list of pull requests]).
+
+## YadL versioning scheme
+
+YadL versioning follows [Semantic Versioning] but deviates as regards the meaning of the third component, the PATCH number, which indicates any level of change worth tagging, such as a fix, a backported feature, a new, original feature, or even a breaking change.  YadL version numbers start  with `0.42` followed by dot and the PATCH number.
 
 ## Licence and copyright
 
-GNU GPL3 is license to both yadL and yadU. Copyright notices in yadL source code are not always up-to-date. To comply with GPL3's license I hereby claim copyright on the source code added to this repository:
+YadL is licensed under the GNU General Public License version 3 (GPLv3). Due to occasional inconsistencies in copyright notices within the source code, to ensure compliance with GPLv3 license requirements I affirm my copyright ownership of all source code contributions I have made to this repository.
 
-		yad maintenance branch, aka yad-maintain-gtk2, yadL, (C) 2019-2023 step
+		yad maintenance branch, aka yad-maintain-gtk2, yadL, (C) 2019-2025 step
 
-## New yadL features
+## yadL features not found in yadU
 
-yadL of its own adds the following new features not included in yadU, to the best of my knowledge.
-Refer to [yadL commit log](https://github.com/step-/yad/commits) for more details.
-See also [Preparing yadL scripts for yadU](https://github.com/step-/yad/wiki/Preparing-yadL-scripts-for-yadU) in the yadL Wiki.
+YadL of its own adds the following new features, which, to the best of my knowledge, cannot be found in yadU.
+Refer to the [yadL commit log] for more details.
+See also the [Preparing yadL scripts for yadU] Wiki page.
 
-- option `--icon-width=SIZE` is a deprecated alias for `--icon-size`
-- new option `--center-keep`
-- yadL GTK+-3 binary still supports stock items for button icons
-- yadL still uses the GtkSpell3 spell engine
-- yadL's own about dialog is modified
-- save print settings to new file `$XDG_CONFIG_HOME/yad/print.conf` ⁽⁵⁾
+- The yadL about dialog is modified to reflect its new origin and development.
+- The yadL GTK+-3 binary still supports stock icons for buttons and image options.
+- The yadL binary still links to the GtkSpell3 spell engine.
+- YadL saves print settings to the new file `$XDG_CONFIG_HOME/yad/print.conf` ⁽⁵⁾
+- The `--icon-width=SIZE` option is a deprecated alias for `--icon-size`.
+- The new `--center-keep` option.
+- The new `@ID` symbolic field reference for form `@`commands [0.42.71] (§)213.
+- The new `--use-output-prefix` option tags form field output with field `ID` names [0.42.71] (§)213.
+- A new invisible form field type `:INV` [0.42.85].
+- YadL disables form buttons and list items while synchronous user commands are running [0.42.73] (§)221.
 
-(§)N Refers to our pull request (PR) number N [https://github.com/v1cont/yad/pulls?q=author%3Astep-](https://github.com/v1cont/yad/pulls?q=author%3Astep-).
+## Frozen features
 
-- symbolic ID field references in form dialog actions [0.42.71]  (§)213
-- symbolic ID names in form dialog output [0.42.71]  (§)213
-- auto-disable form buttons and list items while synchronous action runs [0.42.73]  (§)221
+Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget. Some YadL versions compiled with Webkit can be found 
 
-## Notable bug fixes
+## Historical bug fixes
 
-Several bugs that affected the parent project when it was forked have been fixed. The following stand out:
+Several bugs that affect the upstream 0.42.0 yadU release have been fixed. The following fixes stand out:
 
-* some print dialog issues⁽¹⁾ [0.42.38]
-* forcefully close a notebook dialog on exit if some tab has hung
-* unpredictably, notebook tabs are too small [0.42.43]
-* form button syntax [0.42.75]
+- Some print dialog issues⁽¹⁾ [0.42.38].
+- Forcefully closing a notebook dialog on exit if some tab has hung.
+- Notebook tabs are unpredictably too small [0.42.43].
+- Form button syntax issues [0.42.75].
 
-## Known bugs
+## Known yadL bugs
 
-* (GTK+-2 build only) If the main icon of the notification dialog is a named icon, it does not scale automatically, therefore it looks larger than other icons in the tray. This bug has existed since at least version 0.40.0. It can only be noticed on some notification trays that do not themselves resize the icons they display.
-
-## Frozen or untested features
-
-* HTML dialog widget - As Fatdog64 Linux no longer packages the Webkit engine, I do not make an effort to maintain or even compile yadL's HTML dialog widget.
+- (GTK+-2 build only) If the main icon of the notification dialog is a named icon, it does not scale automatically, therefore it looks larger than other icons in the tray. This bug has existed since at least version 0.40.0. It can only be seen on some notification trays that do not themselves resize the icons.
 
 ## Diverged features
 
 See the _New yadL features_ and _Notes_ sections.
 
-## Features and bug fixes backported from yadU to yadL
+## Backported features and bug fixes
 
 [This list](https://github.com/step-/blob/maintain-gtk2/feature-comparison.md)
-of yadU features is extracted from the [NEWS](https://github.com/v1cont/NEWS) file.
+of yadU features is extracted from the upstream [NEWS](https://github.com/v1cont/NEWS) file.
 
-The version numbers in the following headings refer to yadU releases.
-My annotations are wrapped in square brackets. The version numbers refer to yadL releases.
-(§)N Refers to our pull request (PR) number N [https://github.com/v1cont/yad/pulls?q=author%3Astep-](https://github.com/v1cont/yad/pulls?q=author%3Astep-).
+Version numbers in **headings** refer to yadU releases.
+Version numbers withing **paragraphs** refer to yadL releases.
+
+The symbol (§)N refers to the Pull Request (PR) number N the yadL repository makes to the yadU repository ([list of pull requests]).
 
 Abbreviations:
 
@@ -74,11 +77,11 @@ Abbreviations:
 
 Version ?  (yadU current development)
 
-Version 14.1
+Version [14.1]
 
-Version 14.0
+Version [14.0]
 
-Version 13.0
+Version [13.0]
 
 - `[+]` 853484e update documentation [0.42.84]
 - `[+]` db438d7 --homogeneous affects form columns too ⁽¹²⁾ [0.42.84]
@@ -86,15 +89,15 @@ Version 13.0
 - `[+]` d7ded23 improve run\_command\_sync for avoiding possible race conditions [0.42.67]
 - `[+]` 1d402f7 add some null-pointer checks in form dialog code [0.42.67]
 - `[+]` ff81778 remove some warnings [0.42.66]
-- `[+]` c8e9ef2 fix UI not updated when sync command runs [0.42.66]  (§)210
+- `[+]` c8e9ef2 fix UI not updated when sync command runs [0.42.66] (§)210
 
-Version 12.3
+Version [12.3]
 
 - `[ ]` fixed setting webkit properties and user defined style sheet in html dialog
 - `[ ]` improve stdin handler for html dialog
 - `[ ]` update copyright notice
 
-Version 12.2
+Version [12.2]
 
 - `[ ]` add --auto-scroll option as an alias to --tail
 - `[ ]` fixed jump to anchor in simple mode of html dialog
@@ -102,13 +105,13 @@ Version 12.2
 - `[ ]` fixed man page
 - `[ ]` code cleanup
 
-Version 12.1
+Version [12.1]
 
 - `[ ]` fixed some typos
 - `[ ]` fixed permissions in thumbnails creation
 - `[ ]` improve interpreteur string in yad-settings script
 
-Version 12.0
+Version [12.0]
 
 - `[ ]` add ability to load several images in picture dialog
 - `[+]` add color picker to color dialog and yad-tools [0.42.68],[0.42.72]
@@ -118,23 +121,23 @@ Version 12.0
 - `[+]` add switch field type in form dialog (thanks to Misko <mpsrbija@gmail.com>) [0.42.54]
 - `[ ]` use pango markup for multiline text field in form dialog
 
-Version 11.1
+Version [11.1]
 
 - `[ ]` fix input parsing for notification icon
 - `[ ]` fix parsing desktop files for icons dialog
 - `[ ]` fix link handling for browser mode in html dialog
 - `[ ]` improve setting user-defined image in about dialog
 
-Version 11.0
+Version [11.0]
 
 - `[ ]` DROP K HUJAM russian translation
 - `[?]` for other changes please discover the git changelog
 
-Version 10.1
+Version [10.1]
 
-- `[+]` don't make rows homogeneous when form has a text field [0.52.53] +form option --homogeneous
+- `[+]` don't make rows homogeneous when form has a text field [0.42.53] +form option --homogeneous
 
-Version 10.0
+Version [10.0]
 
 - `[ ]` many improvements in text-info dialog
   - `[+]` uses monospace font by default [0.42.76]
@@ -150,21 +153,21 @@ Version 10.0
 - `[ ]` force using small icons in list dialog if icon is not a real filename
 - `[ ]` fixed fitting image in picture dialog
 
-Version 9.3
+Version [9.3]
 
 - `[+]` fix freezing main window on --row-action in list or @cmd in form dialogs [0.42.56]
 
-Version 9.2
+Version [9.2]
 
 - `[ ]` some fixes of menu in editable lists
 - `[ ]` add two additional item to menu in editable lists - "move up" and "move down"
 - `[+]` use double quotes for arguments in default interpreter command [0.42.61]
 
-Version 9.1
+Version [9.1]
 
 - `[?]` fix --version option
 
-Version 9.0
+Version [9.0]
 
 - `[ ]` implement user's customizable --about dialog
 - `[?]` fix passing focus to children in notebook and paned dialogs
@@ -182,22 +185,22 @@ Version 9.0
 - `[>]` add --css option (--gtkrc marked as deprecated)
 - `[ ]` lots of bug fixes
 
-Version 7.3
+Version [7.3]
 
 - `[+]` fix parsing separator field for form dialog (thanks to Dmitry Butskoy)
 - `[ ]` fix handling user defined size of dialog with --width and --height arguments
 
-Version 7.2
+Version [7.2]
 
 - `[+]` fix parsing field names for form dialog
 - `[+]` fix uri-handler for html dialog [0.42.46]
 - `[ ]` add file: scheme for uri regexp in text-info dialog
 
-Version 7.1
+Version [7.1]
 
 - `[+]` fix parsing field names for form dialog
 
-Version 7.0
+Version [7.0]
 
 - `[+]` add --enforce-step option to scale dialog [0.42.62]
 - `[+]` add tooltips and markup to column headers in list dialog [0.42.63]
@@ -213,7 +216,7 @@ Version 7.0
 - `[+]` fixes in man page
 - `[+]` build icon browser by default [0.42.60]
 
-Version 6.0
+Version [6.0]
 
 - `[+]` add --use-interp option ⁽²⁾ [0.42.45]
 - `[+]` add link field to --form dialog [0.42.47]
@@ -222,7 +225,7 @@ Version 6.0
 - `[?]` improve dialog window placement [8b0e5af]
 - `[+]` update translations
 
-Version 5.0
+Version [5.0]
 
 - `[+]` add debug mode. this feature can be turned on through gsettings. ⁽⁵⁾ [0.42.55]
 - `[!]` add configure option --enable-standalone for build yad without gsettings support ⁽⁵⁾
@@ -231,11 +234,11 @@ Version 5.0
 - `[+]` fix --uri-handler option in html dialog [0.42.46]
 - `[+]` fix wrong autoclose behavior in progress dialog [0.42.57]
 
-Version 4.1
+Version [4.1]
 
 - `[+]` fix handling tree data from stdin in list dialog [0.42.35]
 
-Version 4.0
+Version [4.0]
 
 - `[>]` font can be selected with double-click in font dialog
 - `[>]` add application chooser dialog and application chooser field in form dialog
@@ -246,14 +249,14 @@ Version 4.0
 - `[+]` fix output of color values in hex notation [2e75f42]
 - `[+]` removed \*-selection aliases for --file, --color and --font dialogs ⁽³⁾
 
-Version 3.0
+Version [3.0]
 
 - `[+]` add user defined handlers for all editing actions in list dialog.
 
 - `[!]` fix loading text from file in text-info dialog
 - `[!]` fix gsettings key names
 
-Version 2.0
+Version [2.0]
 
 - `[!]` migrate to gsettings from config file ⁽⁵⁾
 - `[+]` add --keep-icon-size option [0.42.26]
@@ -261,7 +264,7 @@ Version 2.0
 - `[>]` fix segfault in text-info dialog when empty file is specified ⁽⁴⁾
 - `[+]` fix initial selection in selectable labels
 
-Version 1.0
+Version [1.0]
 
 - `[-]` completely removed support of gtk+-2.0
 - `[+]` minimum required gtk+ version bump to 3.22.0
@@ -274,7 +277,7 @@ Version 1.0
 - `[+]` tray icon is optional now. this dialog is enabled by default but can be turned off with ./configure --disable-tray [0.42.58]
 - `[-]` remove --fore, --back and --font options for text-info dialog. those functionality can be done through custom css
 
-Version 0.42.0
+Version [0.42.0]
 
 - `[+]` add pfd utility for fontnames transformation in scripts
 - `[+]` add 'menu' action for notification icon
@@ -312,3 +315,75 @@ See the NEWS file for older versions.
 ⁽¹¹⁾ GTK+-2 `yad-tools --icon --size` always prints the scalable icon name, if available, regardless of the requested size; a similar remark applies to options `--icon --type`.
 
 ⁽¹²⁾ This is a **breaking change** for previous forms that relied on columns to remain non-homogeneous. The `--homogeneous` option does not, and never did apply to GTK+-2 builds.
+
+[0.42.26]: https://github.com/step-/yad/releases/tag/0.42.26
+[0.42.31]: https://github.com/step-/yad/releases/tag/0.42.31
+[0.42.33]: https://github.com/step-/yad/releases/tag/0.42.33
+[0.42.35]: https://github.com/step-/yad/releases/tag/0.42.35
+[0.42.38]: https://github.com/step-/yad/releases/tag/0.42.38
+[0.42.42]: https://github.com/step-/yad/releases/tag/0.42.42
+[0.42.43]: https://github.com/step-/yad/releases/tag/0.42.43
+[0.42.44]: https://github.com/step-/yad/releases/tag/0.42.44
+[0.42.45]: https://github.com/step-/yad/releases/tag/0.42.45
+[0.42.46]: https://github.com/step-/yad/releases/tag/0.42.46
+[0.42.47]: https://github.com/step-/yad/releases/tag/0.42.47
+[0.42.48]: https://github.com/step-/yad/releases/tag/0.42.48
+[0.42.50]: https://github.com/step-/yad/releases/tag/0.42.50
+[0.42.52]: https://github.com/step-/yad/releases/tag/0.42.52
+[0.42.53]: https://github.com/step-/yad/releases/tag/0.42.53
+[0.42.54]: https://github.com/step-/yad/releases/tag/0.42.54
+[0.42.55]: https://github.com/step-/yad/releases/tag/0.42.55
+[0.42.56]: https://github.com/step-/yad/releases/tag/0.42.56
+[0.42.57]: https://github.com/step-/yad/releases/tag/0.42.57
+[0.42.58]: https://github.com/step-/yad/releases/tag/0.42.58
+[0.42.59]: https://github.com/step-/yad/releases/tag/0.42.59
+[0.42.60]: https://github.com/step-/yad/releases/tag/0.42.60
+[0.42.61]: https://github.com/step-/yad/releases/tag/0.42.61
+[0.42.62]: https://github.com/step-/yad/releases/tag/0.42.62
+[0.42.63]: https://github.com/step-/yad/releases/tag/0.42.63
+[0.42.64]: https://github.com/step-/yad/releases/tag/0.42.64
+[0.42.66]: https://github.com/step-/yad/releases/tag/0.42.66
+[0.42.67]: https://github.com/step-/yad/releases/tag/0.42.67
+[0.42.68]: https://github.com/step-/yad/releases/tag/0.42.68
+[0.42.71]: https://github.com/step-/yad/releases/tag/0.42.71
+[0.42.72]: https://github.com/step-/yad/releases/tag/0.42.72
+[0.42.73]: https://github.com/step-/yad/releases/tag/0.42.73
+[0.42.75]: https://github.com/step-/yad/releases/tag/0.42.75
+[0.42.76]: https://github.com/step-/yad/releases/tag/0.42.76
+[0.42.78]: https://github.com/step-/yad/releases/tag/0.42.78
+[0.42.84]: https://github.com/step-/yad/releases/tag/0.42.84
+[0.42.85]: https://github.com/step-/yad/releases/tag/0.42.85
+
+[14.1]: https://github.com/v1cont/yad/releases/tag/v14.1
+[14.0]: https://github.com/v1cont/yad/releases/tag/v14.0
+[13.0]: https://github.com/v1cont/yad/releases/tag/v13.0
+[12.3]: https://github.com/v1cont/yad/releases/tag/v12.3
+[12.2]: https://github.com/v1cont/yad/releases/tag/v12.2
+[12.1]: https://github.com/v1cont/yad/releases/tag/v12.1
+[12.0]: https://github.com/v1cont/yad/releases/tag/v12.0
+[11.1]: https://github.com/v1cont/yad/releases/tag/v11.1
+[11.0]: https://github.com/v1cont/yad/releases/tag/v11.0
+[10.1]: https://github.com/v1cont/yad/releases/tag/v10.1
+[10.0]: https://github.com/v1cont/yad/releases/tag/v10.0
+[9.3]: https://github.com/v1cont/yad/releases/tag/v9.3
+[9.2]: https://github.com/v1cont/yad/releases/tag/v9.2
+[9.1]: https://github.com/v1cont/yad/releases/tag/v9.1
+[9.0]: https://github.com/v1cont/yad/releases/tag/v9.0
+[7.3]: https://github.com/v1cont/yad/releases/tag/v7.3
+[7.2]: https://github.com/v1cont/yad/releases/tag/v7.2
+[7.1]: https://github.com/v1cont/yad/releases/tag/v7.1
+[7.0]: https://github.com/v1cont/yad/releases/tag/v7.0
+[6.0]: https://github.com/v1cont/yad/releases/tag/v6.0
+[5.0]: https://github.com/v1cont/yad/releases/tag/v5.0
+[4.1]: https://github.com/v1cont/yad/releases/tag/v4.1
+[4.0]: https://github.com/v1cont/yad/releases/tag/v4.0
+[3.0]: https://github.com/v1cont/yad/releases/tag/v3.0
+[2.0]: https://github.com/v1cont/yad/releases/tag/v2.0
+[1.0]: https://github.com/v1cont/yad/releases/tag/v1.0
+[0.42.0]: https://github.com/v1cont/yad/releases/tag/v0.42.0
+
+[Fatdog64 Linux]: <https://distro.ibiblio.org/fatdog/web>
+[list of pull requests]: <https://github.com/v1cont/yad/pulls?q=author%3Astep->
+[Preparing yadL scripts for yadU]: <https://github.com/step-/yad/wiki/Preparing-yadL-scripts-for-yadU>
+[Semantic Versioning]: <https://en.wikipedia.org/wiki/Software_versioning#Semantic_versioning>
+[yadL commit log]: <https://github.com/step-/yad/commits>
