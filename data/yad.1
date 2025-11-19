@@ -7,13 +7,13 @@ yad \- display GTK+ dialogs from shell scripts or command-line
 .RI [ OPTIONS ]
 
 .SH DESCRIPTION
-\fBYAD\fP displays GTK+ dialogs, and returns the user's input
+\fBYAD\fP displays GTK+ dialogs and returns the user's input
 through the program exit code and on standard output.
 .PP
 \fBYAD\fP is a fork of the \fBZenity\fP program.
 .PP
 This manual page is about the GTK+-2 and GTK+-3 version maintained independently from
-the original YAD project. See the \fIMAINTAINERS\fP section for more.
+the original YAD project. Refer to the \fIMAINTAINERS\fP section.
 
 .SH OPTIONS
 This program follows the usual GNU command line syntax, with long
@@ -120,7 +120,7 @@ See signal(7) for details about signals.
 Output X Window ID of a yad window to the specified file or stderr.
 .TP
 .B \-\-plug=\fIKEY\fP
-Plug dialog as a tab or pane of another YAD instance. See \fINOTEBOOK\fP section for more.
+Plug the dialog into the upcoming yad \fB\-\-key\fP instance as a tab or pane. See \fINOTEBOOK\fP section for more.
 .TP
 .B \-\-tabnum=\fINUMBER\fP
 Set the tab number of the plugged dialog. See \fINOTEBOOK\fP section for more.
@@ -129,7 +129,7 @@ Set the tab number of the plugged dialog. See \fINOTEBOOK\fP section for more.
 Set the dialog text.
 .TP
 .B \-\-text-align=\fITYPE\fP
-Set type of text justification. \fITYPE\fP may be \fIleft\fP, \fIright\fP, \fIcenter\fP or \fIfill\fP.
+Set dialog text justification type. \fITYPE\fP may be \fIleft\fP, \fIright\fP, \fIcenter\fP or \fIfill\fP.
 .TP
 .B \-\-image=\fIIMAGE\fP
 Show an image to the left of the main widget.
@@ -145,7 +145,7 @@ Use specified GTK icon theme instead of default.
 Do not scale icons. This option affects icons outside the icon theme.
 .TP
 .B \-\-expander=\fI[TEXT]\fP
-Hide the main widget with an expander. \fITEXT\fP is the optional label of the expander.
+Place the main widget inside an expander widget. \fITEXT\fP is the optional label of the expander.
 .TP
 .B \-\-button=\fIBUTTON:ID\fP
 Add a dialog button. May be used multiple times. \fIID\fP is an exit code or a command.
@@ -227,14 +227,14 @@ in the EWMH specification. Note that dialog behavior becomes highly dependent on
 Dialog window never take focus.
 .TP
 .B \-\-close-on-unfocus
-Close the dialog window when it loose the focus.
+Close the dialog window when it loses focus.
 .TP
 .B \-\-selectable-labels
 If set, user can select dialog text and copy it to the clipboard.
 This option also affects label fields in form dialog.
 .TP
 .B \-\-image-path=\fIPATH\fP
-Add specified directory path to the standard search list for icons. This option can be used multiple times.
+Add the specified directory path to the standard icon search path list. This option can be used multiple times.
 .TP
 .B \-\-rest=\fIFILENAME\fP
 Read extra arguments from given file instead of command line. Each line of a file treats as a single argument.
@@ -243,7 +243,7 @@ Read extra arguments from given file instead of command line. Each line of a fil
 Set default exit code to \fINUMBER\fP instead of \fI0\fP.
 .TP
 .B \-\-gtkrc=\fIFILENAME\fP
-Read and parse additional GTK+ settings from given file. This option doesn't work with GTK+-3.x builds.
+Read and parse additional GTK+ settings from the given file. This option affects GTK+-2 builds only.
 .TP
 .B \-\-hscroll-policy=\fITYPE\fP
 Set the policy type for horizontal scrollbars. \fITYPE\fP can be one of the \fIauto\fP, \fIalways\fP or \fInever\fP. Default is \fIauto\fP.
@@ -255,7 +255,7 @@ Set the policy type for vertical scrollbars. \fITYPE\fP can be one of the \fIaut
 Enable spell checking in textview widgets.
 .TP
 .B \-\-spell-lang=\fILANGUAGE\fP
-Set language for spell checking to \fILANGUAGE\fP. By default language is set to from the current locale. Use \fIyad-tools\fP(1) to get a list of all available languages.
+Set spell checking language to \fILANGUAGE\fP. By default the language is set from the current locale. Use \fIyad-tools\fP(1) to get a list of all available languages.
 .TP
 .B \-\-bool-fmt=\fITYPE\fP
 Set the output type of boolean values to \fITYPE\fP. Possible types are \fIT\fP, \fIt\fP, \fIY\fP, \fIy\fP, \fIO\fP, \fIo\fP and \fI1\fP.
@@ -280,7 +280,7 @@ Set the calendar month.
 Set the calendar year.
 .TP
 .B \-\-date-format=\fIPATTERN\fP
-Set the format for the returned date. By default is \fB%x\fP. See \fIstrftime(3)\fP for more details.
+Set the format for the returned date. By default it is \fB%x\fP. See \fIstrftime(3)\fP for more details.
 .TP
 .B \-\-show-weeks
 Show the week numbers at the left side of calendar.
@@ -415,7 +415,7 @@ Use compact mode. Icon and name of each item is placed in a single row.
 Activate items by single mouse click. This option may not works properly in case of compact mode.
 .TP
 .B \-\-term
-Pattern for terminal. By default use \fBxterm \-e %s\fP where %s replaced by the command.
+Set the template for the terminal program. By default it is \fBxterm \-e %s\fP where %s is replaced by the command.
 .PP
 If both directory and stdin specified, content of iconbox will be read from directory.
 
@@ -472,11 +472,11 @@ Add field to form. Type may be \fIH\fP, \fIRO\fP, \fIINV\fP, \fINUM\fP, \fICHK\f
 .br
 \fBINV\fP - invisible field type. The form does not display this field. The user cannot interact with it. However, button \fI@\fPcommands receive and can change its value, and the value is output together with all other form field values.
 .br
-\fBNUM\fP - field is a numeric. Initial value format for this field is \fIVALUE[!RANGE[!STEP![PREC]]]\fP, where \fIRANGE\fP must be in form \fIMIN..MAX\fP. \fB!\fP is a default item separator. \fIPREC\fP is a precision for decimals.
+\fBNUM\fP - field is numeric. Initial value format for this field is \fIVALUE[!RANGE[!STEP![PREC]]]\fP, where \fIRANGE\fP must be in form \fIMIN..MAX\fP. \fB!\fP is a default item separator. \fIPREC\fP is a precision for decimals.
 .br
 \fBCHK\fP - checkbox field. Initial value is a case insensitive boolean constant (\fITRUE\fP or \fIFALSE\fP).
 .br
-\fBCB\fP - combo-box field. Initial value is a list \fIVAL1!VAL2!...\fP. The separator is the same as in \fINUM\fP field. Value started with \fB^\fP threats as default for combo-box.
+\fBCB\fP - combo-box field. Initial value is a list \fIVAL1!VAL2!...\fP. The separator is the same as in \fINUM\fP field. The first values that starts with \fB^\fP is treated as the combo-box default selection.
 .br
 \fBCBE\fP - editable combo-box field. Initial value same as for combo-box.
 .br
@@ -514,7 +514,7 @@ A quoting style for value when \fIsh -c\fP is used \- single quotes around comma
 .br
 \fBLBL\fP - text label. If field name is empty, horizontal separator line will be shown.
 .br
-\fBTXT\fP - multi-line text entry. This field always extends across the entire form.
+\fBTXT\fP - multi-line text entry. This field always extends across the entire column.
 
 A field without \fITYPE\fP becomes a simple text entries.
 .TP
@@ -762,7 +762,7 @@ Set the borders width around widget in tabs.
 Set active tab.
 .TP
 .B \-\-expand
-Expand all tabs to full width of a dialog window.
+Expand all tabs to the full width of the dialog window.
 .PP
 See \fBNOTEBOOK and PANED\fP section for more about notebook dialog.
 
@@ -1093,8 +1093,8 @@ There are two special commands - \fImenu\fP for popup user defined menu and \fIq
 Set popup menu for notification icon.
 STRING must be in form \fIname1[!action1[!icon1]]|name2[!action2[!icon2]]...\fP.
 Empty name add separator to menu.
-Separator character for values (e.g. \fB|\fP) sets with \-\-separator argument.
-Separator character for menu items (e.g. \fB!\fP) sets with \-\-item-separator argument.
+The character to separate values (e.g. \fB|\fP) can be set with the \fI\-\-separator\fP option.
+The character to separate menu items (e.g. \fB!\fP) can be set with the \fI\-\-item-separator\fP option.
 .TP
 .B quit
 Exit the program. Middle click on icon also send \fIquit\fP command.
@@ -1140,7 +1140,8 @@ Exit codes for user-specified buttons must be specified in command line. Even ex
 
 .SH WIDGET NAMES
 .TP
-The look and feel of yad dialogs can be customized through the gtkrc file.
+GTK+-2 yad dialogs can be themed through a gtkrc file.
+Here is a list of yad widget names:
 
 .TS
 tab (@);
@@ -1273,10 +1274,10 @@ AM_PATH_YAD([MINIMUM-VERSION],\\
 .PP
 
 .SH AUTHORS
-\fBYad\fP was written by Victor Ananjevsky, ananasik@gmail.com. Yad icon created by Bogdan Lisovich.
+\fBYad\fP was written by Victor Ananjevsky, <ananasik@gmail.com>. Yad icon created by Bogdan Lisovich.
 
 .SH MAINTAINERS
-The GTK+-2 version is maintained by step, https://github.com/step-/yad.
+The GTK+-2 version is maintained and evolved by step, \fIhttps://github.com/step-/yad\fP.
 
 .SH SEE ALSO
-\fBgdialog\fP(1), \fBdialog\fP(1), \fBzenity\fP(1)
+\fBgdialog\fP(1), \fBdialog\fP(1), \fBzenity\fP(1), \fByad-tools\fP(1)
