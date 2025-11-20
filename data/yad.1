@@ -159,9 +159,10 @@ If \fIID\fP is not a number it is executed as a command, and clicking the button
 Do not show buttons.
 .TP
 .B \-\-buttons-layout=\fITYPE\fP
-Set the layout of the button row relative to the dialog window.
+Set the layout of the button box relative to the dialog window.
 Possible types are: \fIspread\fP, \fIedge\fP, \fIstart\fP, \fIend\fP or \fIcenter\fP.
 Default is \fIend\fP.
+For GTK+-3.0 builds an additional \fIexpand\fP type is available, which, by reducing inter-button spacing, allows making a compact icon-only button box.
 .TP
 .B \-\-no-markup
 Do not use Pango markup in \fI\-\-text\fP option and form labels.
