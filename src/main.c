@@ -901,19 +901,27 @@ main (gint argc, gchar ** argv)
 #endif
 #endif
 
-  /* parse custom gtkrc */
-  if (options.gtkrc_file)
+#if GTK_CHECK_VERSION(3,0,0)
+  /* parse custom css */
+  if (options.css)
     {
-#if !GTK_CHECK_VERSION(3,0,0)
-      gtk_rc_parse (options.gtkrc_file);
-#else
       GtkCssProvider *css = gtk_css_provider_new ();
-      gtk_css_provider_load_from_path (css, options.gtkrc_file, NULL);
+
+      if (g_file_test (options.css, G_FILE_TEST_EXISTS))
+        gtk_css_provider_load_from_path (css, options.css, NULL);
+      else
+        gtk_css_provider_load_from_data (css, options.css, -1, NULL);
       gtk_style_context_add_provider_for_screen (gdk_screen_get_default (), GTK_STYLE_PROVIDER (css),
                                                  GTK_STYLE_PROVIDER_PRIORITY_USER);
       g_object_unref (css);
-#endif
     }
+#else
+  /* parse custom gtkrc */
+  if (options.gtkrc_file)
+    {
+      gtk_rc_parse (options.gtkrc_file);
+    }
+#endif
 
   /* set default icons and icon theme */
   if (options.data.icon_theme)

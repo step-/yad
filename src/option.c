@@ -661,6 +661,8 @@ static GOptionEntry misc_options[] = {
     N_("Show about dialog"), NULL },
   { "version", 0, 0, G_OPTION_ARG_NONE, &version_mode,
     N_("Print version"), NULL },
+  { "css", 0, 0, G_OPTION_ARG_STRING, &options.css,
+    N_("Load additional CSS settings from file or string"), N_("STRING") },
   { "gtkrc", 0, 0, G_OPTION_ARG_FILENAME, &options.gtkrc_file,
     N_("Load additional GTK settings from file"), N_("FILENAME") },
   { "hscroll-policy", 0, 0, G_OPTION_ARG_CALLBACK, set_scroll_policy,
@@ -1499,6 +1501,7 @@ yad_options_init (void)
   options.mode = YAD_MODE_MESSAGE;
   options.rest_file = NULL;
   options.extra_data = NULL;
+  options.css = NULL;
   options.gtkrc_file = NULL;
 #ifndef G_OS_WIN32
   options.kill_parent = 0;
