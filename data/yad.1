@@ -1,4 +1,4 @@
-.TH YAD 1 "March 24, 2023"  "yad GTK+ 2.0" "User Commands"
+.TH YAD 1 "November 25, 2025"  "yad maintained for GTK+ 2 and 3" "User Commands"
 .SH NAME
 yad \- display GTK+ dialogs from shell scripts or command-line
 
@@ -243,6 +243,9 @@ Read extra arguments from given file instead of command line. Each line of a fil
 .B \-\-response=\fINUMBER\fP
 Set default exit code to \fINUMBER\fP instead of \fI0\fP.
 .TP
+.B \-\-css=\fISTRING\fP
+Read and parse additional GTK+ CSS styles from given data. If \fISTRING\fP is a filename, file contents are loaded otherwise \fISTRING\fP itself is processed as CSS data.
+This option affects GTK+-3 builds only.
 .B \-\-gtkrc=\fIFILENAME\fP
 Read and parse additional GTK+ settings from the given file. This option affects GTK+-2 builds only.
 .TP
