@@ -33,11 +33,14 @@ See also the [Preparing yadL scripts for yadU] Wiki page.
 - A new invisible form field type `:INV` [0.42.85].
 - YadL disables form buttons and list items while synchronous user commands are running [0.42.73] (§)221.
 - A Meson build (thanks Dima Krasner @dimakr) [0.42.83].
-- GTK+-3 Layer-shell support using the new options `--layer` and `--edge` (thanks Dima Krasner @dimakr) [0.42.83].
+- GTK+-3 Layer-shell support using the new `--layer` and `--edge` options (thanks Dima Krasner @dimakr) [0.42.83].
+- New `"expand"` type for the `--buttons-layout` option (GTK+-3 only) [0.42.86].
 
 ## Frozen features
 
-Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget.
+Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget. Pull requests are welcome!
+
+The POT and PO translation files are no longer maintained. Pull requests are welcome!
 
 ## Historical bug fixes
 
@@ -77,7 +80,11 @@ Abbreviations:
 
 ---
 
-Version ?  (yadU current development)
+Version ?  (yadU's current development master)
+
+- `[!]` d8c32b3 some fixes for editor settings in yad settings GUI script
+- `[>]` 995a89e fix type conversion
+- `[+]` d40c620 fix return value [0.42.86]
 
 Version [14.1]
 
@@ -171,6 +178,7 @@ Version [9.1]
 
 Version [9.0]
 
+- `[+]` add --css option (GTK+-3) [0.42.86]
 - `[ ]` implement user's customizable --about dialog
 - `[?]` fix passing focus to children in notebook and paned dialogs
 - `[ ]` add --stack mode to notebook dialog
@@ -356,6 +364,7 @@ See the NEWS file for older versions.
 [0.42.83]: https://github.com/step-/yad/releases/tag/0.42.83
 [0.42.84]: https://github.com/step-/yad/releases/tag/0.42.84
 [0.42.85]: https://github.com/step-/yad/releases/tag/0.42.85
+[0.42.86]: https://github.com/step-/yad/releases/tag/0.42.86
 
 [14.1]: https://github.com/v1cont/yad/releases/tag/v14.1
 [14.0]: https://github.com/v1cont/yad/releases/tag/v14.0
