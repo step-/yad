@@ -940,11 +940,11 @@ form_create_widget (GtkWidget * dlg)
       gtk_grid_set_column_homogeneous (GTK_GRID (tbl), options.form_data.homogeneous);
 #endif
 
-      if (options.form_data.scroll)
+      if (options.common_data.scroll)
         {
           GtkWidget *sw = gtk_scrolled_window_new (NULL, NULL);
           gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_NONE);
-          gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), options.hscroll_policy, options.vscroll_policy);
+          gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), options.data.hscroll_policy, options.data.vscroll_policy);
 
 
 #if !GTK_CHECK_VERSION(3,0,0)
@@ -1511,7 +1511,7 @@ form_create_widget (GtkWidget * dlg)
 
                 sw = gtk_scrolled_window_new (NULL, NULL);
                 gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_ETCHED_IN);
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), options.hscroll_policy, options.vscroll_policy);
+                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), options.data.hscroll_policy, options.data.vscroll_policy);
                 gtk_box_pack_start (GTK_BOX (b), sw, TRUE, TRUE, 0);
 
                 e = gtk_text_view_new ();

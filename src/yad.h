@@ -244,6 +244,8 @@ typedef struct {
   gchar *icon_theme;
   gchar *expander;
   gint borders;
+  GtkPolicyType hscroll_policy;
+  GtkPolicyType vscroll_policy;
   GSList *buttons;
   gboolean no_buttons;
   gboolean no_markup;
@@ -500,6 +502,7 @@ typedef struct {
   gboolean num_output;
   gboolean hide_text;
   gint icon_size;
+  gboolean scroll;
 #if GLIB_CHECK_VERSION(2,30,0)
   GFormatSizeFlags size_fmt;
 #endif
