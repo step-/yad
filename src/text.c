@@ -432,26 +432,33 @@ fill_buffer_from_stdin ()
 GtkWidget *
 text_create_widget (GtkWidget * dlg)
 {
-  GtkWidget *w;
+  GtkWidget *w, *sw, *tv;
 
-  w = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (w), GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (w), options.data.hscroll_policy, options.data.vscroll_policy);
+#if !GTK_CHECK_VERSION(3,0,0)
+  w = gtk_vbox_new (FALSE, 2);
+#else
+  w = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
+#endif
+
+  sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_ETCHED_IN);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), options.data.hscroll_policy, options.data.vscroll_policy);
+  gtk_box_pack_start (GTK_BOX (w), sw, TRUE, TRUE, 0);
 
 #ifdef HAVE_SOURCEVIEW
   if (options.source_data.lang || options.common_data.uri)
   {
     text_buffer = (GObject *) gtk_source_buffer_new (NULL);
-    text_view = gtk_source_view_new_with_buffer (GTK_SOURCE_BUFFER (text_buffer));
+    tv = text_view = gtk_source_view_new_with_buffer (GTK_SOURCE_BUFFER (text_buffer));
   }
   else
   {
     text_buffer = (GObject *) gtk_text_buffer_new (NULL);
-    text_view = gtk_text_view_new_with_buffer (GTK_TEXT_BUFFER (text_buffer));
+    tv = text_view = gtk_text_view_new_with_buffer (GTK_TEXT_BUFFER (text_buffer));
   }
 #else
   text_buffer = (GObject *) gtk_text_buffer_new (NULL);
-  text_view = gtk_text_view_new_with_buffer (GTK_TEXT_BUFFER (text_buffer));
+  tv = text_view = gtk_text_view_new_with_buffer (GTK_TEXT_BUFFER (text_buffer));
 #endif
   gtk_widget_set_name (text_view, "yad-text-widget");
   gtk_text_view_set_justification (GTK_TEXT_VIEW (text_view), options.text_data.justify);
@@ -592,6 +599,7 @@ text_create_widget (GtkWidget * dlg)
 
   gtk_container_add (GTK_CONTAINER (w), text_view);
 
+  /* load data */
   if (options.common_data.uri)
     fill_buffer_from_file ();
 
