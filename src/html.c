@@ -195,7 +195,7 @@ policy_cb (WebKitWebView *v, WebKitPolicyDecision *pd, WebKitPolicyDecisionType 
         cmd = g_strdup_printf (options.data.uri_handler, uri);
       else
         cmd = g_strdup_printf ("%s '%s'", options.data.uri_handler, uri);
-      status = run_command_sync (cmd, NULL);
+      status = run_command_sync (cmd, NULL, GTK_WIDGET (view));
       g_free (cmd);
 
       g_unsetenv ("YAD_HTML_BUTTON");
@@ -239,11 +239,11 @@ select_file_cb (GtkEntry *entry, GtkEntryIconPosition pos, GdkEventButton *ev, g
   if (ev->button != 1 || pos != GTK_ENTRY_ICON_SECONDARY)
     return;
 
-  dlg = gtk_file_chooser_dialog_new (_("YAD - Select File"),
+  SETUNDEPR (dlg, gtk_file_chooser_dialog_new, _("YAD - Select File"),
                                      GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (entry))),
                                      GTK_FILE_CHOOSER_ACTION_OPEN,
-                                     _("Cancel"), GTK_RESPONSE_CANCEL,
-                                     _("OK"), GTK_RESPONSE_ACCEPT,
+                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                     GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
                                      NULL);
   if (dir)
     gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), dir);
@@ -273,10 +273,10 @@ open_cb (GSimpleAction *act, GVariant *param, gpointer d)
 {
   GtkWidget *dlg, *cnt, *lbl, *entry;
 
-  dlg = gtk_dialog_new_with_buttons (_("Open URI"), GTK_WINDOW (d),
+  SETUNDEPR (dlg, gtk_dialog_new_with_buttons, _("Open URI"), GTK_WINDOW (d),
                                      GTK_DIALOG_DESTROY_WITH_PARENT,
-                                     _("Cancel"), GTK_RESPONSE_REJECT,
-                                     _("Open"), GTK_RESPONSE_ACCEPT,
+                                     GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
+                                     GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
                                      NULL);
   gtk_window_set_default_size (GTK_WINDOW (dlg), 350, -1);
 
@@ -639,11 +639,7 @@ html_create_widget (GtkWidget * dlg)
     }
 
   /* check for user specified uri handler */
-#ifndef STANDALONE
-  str = g_settings_get_string (settings, "open-command");
-#else
-  str = g_strdup (OPEN_CMD);
-#endif
+  str = g_strdup (settings.open_cmd);
   if (strcmp (options.data.uri_handler, str) != 0)
     uri_cmd = TRUE;
   g_free (str);
