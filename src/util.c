@@ -970,3 +970,71 @@ open_uri (const gchar *uri)
   run_command_async (cmdline);
   g_free (cmdline);
 }
+#if GTK_CHECK_VERSION(3,0,0)
+
+/* Search bar */
+static void
+next_clicked_cb (GtkWidget *w, YadSearchBar *sb)
+{
+  g_signal_emit_by_name (sb->entry, "next-match");
+}
+
+static void
+prev_clicked_cb (GtkWidget *w, YadSearchBar *sb)
+{
+  g_signal_emit_by_name (sb->entry, "previous-match");
+}
+
+static void
+case_toggle_cb (GtkToggleButton *b, YadSearchBar *sb)
+{
+  sb->case_sensitive = !sb->case_sensitive;
+  gtk_toggle_button_set_active (b, sb->case_sensitive);
+}
+
+YadSearchBar *
+create_search_bar ()
+{
+  YadSearchBar *sb;
+  GtkWidget *b;
+  gint e_width = -1;
+
+  sb = g_new0 (YadSearchBar, 1);
+  sb->new_search = TRUE;
+
+  sb->bar = gtk_search_bar_new ();
+  gtk_search_bar_set_show_close_button (GTK_SEARCH_BAR (sb->bar), TRUE);
+
+  b = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+  gtk_container_add (GTK_CONTAINER (sb->bar), b);
+
+  sb->entry = gtk_search_entry_new ();
+  gtk_box_pack_start (GTK_BOX (b), sb->entry, TRUE, TRUE, 0);
+  gtk_search_bar_connect_entry (GTK_SEARCH_BAR (sb->bar), GTK_ENTRY (sb->entry));
+
+  e_width = settings.search_width;
+  if (e_width > 0)
+    gtk_widget_set_size_request (sb->entry, e_width, -1);
+
+  sb->next = gtk_button_new_from_icon_name ("go-down", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_set_focus_on_click (sb->next, FALSE);
+  gtk_box_pack_start (GTK_BOX (b), sb->next, FALSE, FALSE, 0);
+
+  g_signal_connect (G_OBJECT (sb->next), "clicked", G_CALLBACK (next_clicked_cb), sb);
+
+  sb->prev = gtk_button_new_from_icon_name ("go-up", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_set_focus_on_click (sb->prev, FALSE);
+  gtk_box_pack_start (GTK_BOX (b), sb->prev, FALSE, FALSE, 0);
+
+  g_signal_connect (G_OBJECT (sb->prev), "clicked", G_CALLBACK (prev_clicked_cb), sb);
+
+  sb->case_toggle = gtk_check_button_new_with_mnemonic (_("Case _sensitive"));
+  gtk_widget_set_focus_on_click (sb->case_toggle, FALSE);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sb->case_toggle), sb->case_sensitive);
+  gtk_box_pack_start (GTK_BOX (b), sb->case_toggle, FALSE, FALSE, 0);
+
+  g_signal_connect (G_OBJECT (sb->case_toggle), "toggled", G_CALLBACK (case_toggle_cb), sb);
+
+  return sb;
+}
+#endif

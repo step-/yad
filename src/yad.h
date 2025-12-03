@@ -502,6 +502,7 @@ typedef struct {
   gboolean num_output;
   gboolean hide_text;
   gint icon_size;
+  gboolean enable_search;
   gboolean scroll;
 #if GLIB_CHECK_VERSION(2,30,0)
   GFormatSizeFlags size_fmt;
@@ -569,6 +570,18 @@ typedef struct {
 #endif
 } YadOptions;
 
+/* Search bar */
+typedef struct {
+  GtkWidget *bar;
+  GtkWidget *entry;
+  GtkWidget *next;
+  GtkWidget *prev;
+  GtkWidget *case_toggle;
+  gboolean case_sensitive;
+  gboolean new_search;
+  const gchar *str;
+} YadSearchBar;
+
 extern YadOptions options;
 
 typedef struct {
@@ -591,6 +604,8 @@ typedef struct {
 } YadSettings;
 
 extern YadSettings settings;
+
+extern gboolean ignore_esc;
 
 /* TABS */
 typedef struct {
@@ -695,6 +710,8 @@ gchar *pango_to_css (gchar *font);
 #endif
 
 void open_uri (const gchar *uri);
+
+YadSearchBar *create_search_bar ();
 
 static inline void
 strip_new_line (gchar * str)

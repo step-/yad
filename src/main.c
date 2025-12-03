@@ -39,6 +39,9 @@
 #endif
 
 YadOptions options;
+/* global flag for temporary disable ESC handling (needed for searchbar) */
+gboolean ignore_esc = FALSE;
+
 static GtkWidget *dialog = NULL;
 static GtkWidget *text = NULL;
 
