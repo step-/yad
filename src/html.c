@@ -15,15 +15,191 @@
  * along with YAD. If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 2008-2025, Victor Ananjevsky <victor@sanana.kiev.ua>
+ * Copyright (C) 2025, step https://github.com/step-
  */
 
 #include <limits.h>
 #include <stdlib.h>
+#include <gmodule.h>
 
 #include "yad.h"
 
 #include <webkit2/webkit2.h>
 
+typedef void (*WebkitContextMenuAppendFunc)(WebKitContextMenu*, WebKitContextMenuItem*);
+static WebkitContextMenuAppendFunc webkit_context_menu_append_f = NULL;
+#define webkit_context_menu_append webkit_context_menu_append_f
+typedef WebKitContextMenuItem* (*WebkitContextMenuItemNewFromGactionFunc)(GAction*, const gchar*, GVariant*);
+static WebkitContextMenuItemNewFromGactionFunc webkit_context_menu_item_new_from_gaction_f = NULL;
+#define webkit_context_menu_item_new_from_gaction webkit_context_menu_item_new_from_gaction_f
+typedef WebKitContextMenuItem* (*WebkitContextMenuItemNewSeparatorFunc)(void);
+static WebkitContextMenuItemNewSeparatorFunc webkit_context_menu_item_new_separator_f = NULL;
+#define webkit_context_menu_item_new_separator webkit_context_menu_item_new_separator_f
+typedef void (*WebkitContextMenuPrependFunc)(WebKitContextMenu*, WebKitContextMenuItem*);
+static WebkitContextMenuPrependFunc webkit_context_menu_prepend_f = NULL;
+#define webkit_context_menu_prepend webkit_context_menu_prepend_f
+typedef void (*WebkitFindControllerSearchFunc)(WebKitFindController*, const gchar*, guint32, guint);
+static WebkitFindControllerSearchFunc webkit_find_controller_search_f = NULL;
+#define webkit_find_controller_search webkit_find_controller_search_f
+typedef void (*WebkitFindControllerSearchFinishFunc)(WebKitFindController*);
+static WebkitFindControllerSearchFinishFunc webkit_find_controller_search_finish_f = NULL;
+#define webkit_find_controller_search_finish webkit_find_controller_search_finish_f
+typedef void (*WebkitFindControllerSearchNextFunc)(WebKitFindController*);
+static WebkitFindControllerSearchNextFunc webkit_find_controller_search_next_f = NULL;
+#define webkit_find_controller_search_next webkit_find_controller_search_next_f
+typedef void (*WebkitFindControllerSearchPreviousFunc)(WebKitFindController*);
+static WebkitFindControllerSearchPreviousFunc webkit_find_controller_search_previous_f = NULL;
+#define webkit_find_controller_search_previous webkit_find_controller_search_previous_f
+typedef guint (*WebkitNavigationActionGetModifiersFunc)(WebKitNavigationAction*);
+static WebkitNavigationActionGetModifiersFunc webkit_navigation_action_get_modifiers_f = NULL;
+#define webkit_navigation_action_get_modifiers webkit_navigation_action_get_modifiers_f
+typedef guint (*WebkitNavigationActionGetMouseButtonFunc)(WebKitNavigationAction*);
+static WebkitNavigationActionGetMouseButtonFunc webkit_navigation_action_get_mouse_button_f = NULL;
+#define webkit_navigation_action_get_mouse_button webkit_navigation_action_get_mouse_button_f
+typedef WebKitNavigationType (*WebkitNavigationActionGetNavigationTypeFunc)(WebKitNavigationAction*);
+static WebkitNavigationActionGetNavigationTypeFunc webkit_navigation_action_get_navigation_type_f = NULL;
+#define webkit_navigation_action_get_navigation_type webkit_navigation_action_get_navigation_type_f
+typedef WebKitURIRequest* (*WebkitNavigationActionGetRequestFunc)(WebKitNavigationAction*);
+static WebkitNavigationActionGetRequestFunc webkit_navigation_action_get_request_f = NULL;
+#define webkit_navigation_action_get_request webkit_navigation_action_get_request_f
+typedef WebKitNavigationAction* (*WebkitNavigationPolicyDecisionGetNavigationActionFunc)(WebKitNavigationPolicyDecision*);
+static WebkitNavigationPolicyDecisionGetNavigationActionFunc webkit_navigation_policy_decision_get_navigation_action_f = NULL;
+#define webkit_navigation_policy_decision_get_navigation_action webkit_navigation_policy_decision_get_navigation_action_f
+typedef GType (*WebkitNavigationPolicyDecisionGetTypeFunc)(void);
+static WebkitNavigationPolicyDecisionGetTypeFunc webkit_navigation_policy_decision_get_type_f = NULL;
+#define webkit_navigation_policy_decision_get_type webkit_navigation_policy_decision_get_type_f /* WEBKIT_NAVIGATION_POLICY_DECISION (obj) */
+typedef void (*WebkitPolicyDecisionDownloadFunc)(WebKitPolicyDecision*);
+static WebkitPolicyDecisionDownloadFunc webkit_policy_decision_download_f = NULL;
+#define webkit_policy_decision_download webkit_policy_decision_download_f
+typedef void (*WebkitPolicyDecisionIgnoreFunc)(WebKitPolicyDecision*);
+static WebkitPolicyDecisionIgnoreFunc webkit_policy_decision_ignore_f = NULL;
+#define webkit_policy_decision_ignore webkit_policy_decision_ignore_f
+typedef void (*WebkitPolicyDecisionUseFunc)(WebKitPolicyDecision*);
+static WebkitPolicyDecisionUseFunc webkit_policy_decision_use_f = NULL;
+#define webkit_policy_decision_use webkit_policy_decision_use_f
+typedef WebKitURIRequest* (*WebkitResponsePolicyDecisionGetRequestFunc)(WebKitResponsePolicyDecision*);
+static WebkitResponsePolicyDecisionGetRequestFunc webkit_response_policy_decision_get_request_f = NULL;
+#define webkit_response_policy_decision_get_request webkit_response_policy_decision_get_request_f
+typedef GType (*WebkitResponsePolicyDecisionGetTypeFunc)(void);
+static WebkitResponsePolicyDecisionGetTypeFunc webkit_response_policy_decision_get_type_f = NULL;
+#define webkit_response_policy_decision_get_type webkit_response_policy_decision_get_type_f /* WEBKIT_RESPONSE_POLICY_DECISION (obj) */
+typedef WebKitSettings* (*WebkitSettingsNewFunc)(void);
+static WebkitSettingsNewFunc webkit_settings_new_f = NULL;
+#define webkit_settings_new webkit_settings_new_f
+typedef const gchar* (*WebkitUriRequestGetUriFunc)(WebKitURIRequest*);
+static WebkitUriRequestGetUriFunc webkit_uri_request_get_uri_f = NULL;
+#define webkit_uri_request_get_uri webkit_uri_request_get_uri_f
+typedef void (*WebkitUserContentManagerAddStyleSheetFunc)(WebKitUserContentManager*, WebKitUserStyleSheet*);
+static WebkitUserContentManagerAddStyleSheetFunc webkit_user_content_manager_add_style_sheet_f = NULL;
+#define webkit_user_content_manager_add_style_sheet webkit_user_content_manager_add_style_sheet_f
+typedef WebKitUserContentManager* (*WebkitUserContentManagerNewFunc)(void);
+static WebkitUserContentManagerNewFunc webkit_user_content_manager_new_f = NULL;
+#define webkit_user_content_manager_new webkit_user_content_manager_new_f
+typedef WebKitUserStyleSheet* (*WebkitUserStyleSheetNewFunc)(const gchar*, WebKitUserContentInjectedFrames, WebKitUserStyleLevel, const gchar* const*, const gchar* const*);
+static WebkitUserStyleSheetNewFunc webkit_user_style_sheet_new_f = NULL;
+#define webkit_user_style_sheet_new webkit_user_style_sheet_new_f
+typedef cairo_surface_t* (*WebkitWebViewGetFaviconFunc)(WebKitWebView*);
+static WebkitWebViewGetFaviconFunc webkit_web_view_get_favicon_f = NULL;
+#define webkit_web_view_get_favicon webkit_web_view_get_favicon_f
+typedef WebKitFindController* (*WebkitWebViewGetFindControllerFunc)(WebKitWebView*);
+static WebkitWebViewGetFindControllerFunc webkit_web_view_get_find_controller_f = NULL;
+#define webkit_web_view_get_find_controller webkit_web_view_get_find_controller_f
+typedef const gchar* (*WebkitWebViewGetTitleFunc)(WebKitWebView*);
+static WebkitWebViewGetTitleFunc webkit_web_view_get_title_f = NULL;
+#define webkit_web_view_get_title webkit_web_view_get_title_f
+typedef GType (*WebkitWebViewGetTypeFunc)(void);
+static WebkitWebViewGetTypeFunc webkit_web_view_get_type_f = NULL;
+#define webkit_web_view_get_type webkit_web_view_get_type_f /* WEBKIT_WEB_VIEW (obj) */
+typedef void (*WebkitWebViewLoadBytesFunc)(WebKitWebView*, GBytes*, const gchar*, const gchar*, const gchar*);
+static WebkitWebViewLoadBytesFunc webkit_web_view_load_bytes_f = NULL;
+#define webkit_web_view_load_bytes webkit_web_view_load_bytes_f
+typedef void (*WebkitWebViewLoadUriFunc)(WebKitWebView*, const gchar*);
+static WebkitWebViewLoadUriFunc webkit_web_view_load_uri_f = NULL;
+#define webkit_web_view_load_uri webkit_web_view_load_uri_f
+typedef GtkWidget* (*WebkitWebViewNewWithUserContentManagerFunc)(WebKitUserContentManager*);
+static WebkitWebViewNewWithUserContentManagerFunc webkit_web_view_new_with_user_content_manager_f = NULL;
+#define webkit_web_view_new_with_user_content_manager webkit_web_view_new_with_user_content_manager_f
+typedef void (*WebkitWebViewSetSettingsFunc)(WebKitWebView*, WebKitSettings*);
+static WebkitWebViewSetSettingsFunc webkit_web_view_set_settings_f = NULL;
+#define webkit_web_view_set_settings webkit_web_view_set_settings_f
+typedef void (*WebkitWebViewSetZoomLevelFunc)(WebKitWebView*, gdouble);
+static WebkitWebViewSetZoomLevelFunc webkit_web_view_set_zoom_level_f = NULL;
+#define webkit_web_view_set_zoom_level webkit_web_view_set_zoom_level_f
+
+GModule *webkitdl = NULL;
+
+static gboolean
+load_webkit (void)
+{
+  struct sym {
+    const gchar *name;
+    gpointer f;
+  };
+  struct sym t[] = {
+    "webkit_context_menu_append", (gpointer)&webkit_context_menu_append_f,
+    "webkit_context_menu_item_new_from_gaction", (gpointer)&webkit_context_menu_item_new_from_gaction_f,
+    "webkit_context_menu_item_new_separator", (gpointer)&webkit_context_menu_item_new_separator_f,
+    "webkit_context_menu_prepend", (gpointer)&webkit_context_menu_prepend_f,
+    "webkit_find_controller_search", (gpointer)&webkit_find_controller_search_f,
+    "webkit_find_controller_search_finish", (gpointer)&webkit_find_controller_search_finish_f,
+    "webkit_find_controller_search_next", (gpointer)&webkit_find_controller_search_next_f,
+    "webkit_find_controller_search_previous", (gpointer)&webkit_find_controller_search_previous_f,
+    "webkit_navigation_action_get_modifiers", (gpointer)&webkit_navigation_action_get_modifiers_f,
+    "webkit_navigation_action_get_mouse_button", (gpointer)&webkit_navigation_action_get_mouse_button_f,
+    "webkit_navigation_action_get_navigation_type", (gpointer)&webkit_navigation_action_get_navigation_type_f,
+    "webkit_navigation_action_get_request", (gpointer)&webkit_navigation_action_get_request_f,
+    "webkit_navigation_policy_decision_get_navigation_action", (gpointer)&webkit_navigation_policy_decision_get_navigation_action_f,
+    "webkit_navigation_policy_decision_get_type", (gpointer)&webkit_navigation_policy_decision_get_type_f,
+    "webkit_policy_decision_download", (gpointer)&webkit_policy_decision_download_f,
+    "webkit_policy_decision_ignore", (gpointer)&webkit_policy_decision_ignore_f,
+    "webkit_policy_decision_use", (gpointer)&webkit_policy_decision_use_f,
+    "webkit_response_policy_decision_get_request", (gpointer)&webkit_response_policy_decision_get_request_f,
+    "webkit_response_policy_decision_get_type", (gpointer)&webkit_response_policy_decision_get_type_f,
+    "webkit_settings_new", (gpointer)&webkit_settings_new_f,
+    "webkit_uri_request_get_uri", (gpointer)&webkit_uri_request_get_uri_f,
+    "webkit_user_content_manager_add_style_sheet", (gpointer)&webkit_user_content_manager_add_style_sheet_f,
+    "webkit_user_content_manager_new", (gpointer)&webkit_user_content_manager_new_f,
+    "webkit_user_style_sheet_new", (gpointer)&webkit_user_style_sheet_new_f,
+    "webkit_web_view_get_favicon", (gpointer)&webkit_web_view_get_favicon_f,
+    "webkit_web_view_get_find_controller", (gpointer)&webkit_web_view_get_find_controller_f,
+    "webkit_web_view_get_title", (gpointer)&webkit_web_view_get_title_f,
+    "webkit_web_view_get_type", (gpointer)&webkit_web_view_get_type_f,
+    "webkit_web_view_load_bytes", (gpointer)&webkit_web_view_load_bytes_f,
+    "webkit_web_view_load_uri", (gpointer)&webkit_web_view_load_uri_f,
+    "webkit_web_view_new_with_user_content_manager", (gpointer)&webkit_web_view_new_with_user_content_manager_f,
+    "webkit_web_view_set_settings", (gpointer)&webkit_web_view_set_settings_f,
+    "webkit_web_view_set_zoom_level", (gpointer)&webkit_web_view_set_zoom_level_f,
+    NULL, NULL,
+  };
+
+  if (!g_module_supported ())
+    {
+      g_warning ("Dynamic modules not supported");
+      return FALSE;
+    }
+
+  webkitdl = g_module_open (WEBKITGTK_LIBNAME, G_MODULE_BIND_LAZY);
+  if (!webkitdl)
+    {
+      g_warning ("Failed to load WebKitGTK: %s", g_module_error ());
+      return FALSE;
+    }
+
+  for (struct sym *p = t; p->name; p++)
+    {
+      if (!g_module_symbol (webkitdl, p->name, p->f))
+        {
+          g_warning ("Failed to find %s: %s", p->name, g_module_error ());
+          g_module_close (webkitdl);
+          return FALSE;
+        }
+    }
+
+  return TRUE;
+}
+
+/*
+*/
 static WebKitWebView *view;
 static WebKitFindController *find_ctl = NULL;;
 static YadSearchBar *search_bar = NULL;
@@ -546,6 +722,11 @@ html_create_widget (GtkWidget * dlg)
   WebKitSettings *wk_settings;
   WebKitUserContentManager *wk_cman;
   gchar *str;
+
+  if (!load_webkit ())
+    {
+      return NULL;
+    }
 
   w = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
 

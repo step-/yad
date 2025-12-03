@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <gmodule.h>
 
 #ifndef G_OS_WIN32
 # include <sys/shm.h>
@@ -44,6 +45,10 @@ static GtkWidget *text = NULL;
 static gint ret = YAD_RESPONSE_ESC;
 
 static gboolean is_x11 = FALSE;
+
+#if HAVE_HTML
+extern GModule *webkitdl;
+#endif
 
 YadNTabs *tabs;
 
@@ -995,6 +1000,10 @@ main (gint argc, gchar ** argv)
       create_plug ();
       gtk_main ();
       shmdt (tabs);
+#if HAVE_HTML
+      if (webkitdl)
+        g_module_close(webkitdl);
+#endif
       return ret;
     }
 
@@ -1092,6 +1101,11 @@ main (gint argc, gchar ** argv)
   /* NSIG defined in signal.h */
   if (options.kill_parent > 0 && options.kill_parent < NSIG)
     kill (getppid (), options.kill_parent);
+#endif
+
+#if HAVE_HTML
+  if (webkitdl)
+    g_module_close(webkitdl);
 #endif
 
   return ret;
