@@ -1014,7 +1014,7 @@ create_search_bar ()
 
   e_width = settings.search_width;
   if (e_width > 0)
-    gtk_widget_set_size_request (sb->entry, e_width, -1);
+    gtk_widget_set_size_request (sb->entry, e_width, -1); //FIXME sporadic "Gtk-CRITICAL gtk_widget_event: assertion 'WIDGET_REALIZED_FOR_EVENT (widget, event)' failed" error observed for --html with yad and yadU when either e_width is small or (yad only) larger than dlg's width.
 
   sb->next = gtk_button_new_from_icon_name ("go-down", GTK_ICON_SIZE_BUTTON);
   gtk_widget_set_focus_on_click (sb->next, FALSE);
