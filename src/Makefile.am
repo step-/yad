@@ -40,7 +40,7 @@ yad_SOURCES += notification.c
 endif
 
 if HTML
-yad_SOURCES += html.c
+yad_SOURCES += html_gtk2.c
 endif
 
 yad_CFLAGS = $(GTK_CFLAGS) $(HTML_CFLAGS) $(SPELL_CFLAGS) $(SOURCEVIEW_CFLAGS)
