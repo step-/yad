@@ -29,7 +29,7 @@ case "$with_gtk" in
         GTK_MODULE="gtk+-3.0"
         GTK_REQUIRED="3.22.0"
         GTK_PRINT="gtk+-unix-print-3.0"
-        WEBKIT="webkit2gtk-4.0"
+        WEBKIT="webkit2gtk-4.1"
         SPELL="gtkspell3-3.0"
         SOURCEVIEW="gtksourceview-3.0"
         ;;
@@ -59,21 +59,38 @@ AC_DEFINE_UNQUOTED([RGB_FILE], ["$with_rgb"], [Path to rgb.txt file])
 dnl html widget
 AC_ARG_ENABLE([html],
 	[AS_HELP_STRING([--enable-html],
-			[Build YAD with HTML widget])],
-	[build_html=$enableval], [build_html=yes])
+			[Build YAD with HTML widget (default - no)])],
+	[build_html=$enableval], [build_html=no])
 if test x$build_html = xyes; then
     PKG_CHECK_MODULES([HTML], [$WEBKIT], [have_html=yes], [have_html=no])
+    if test x$with_gtk = xgtk3; then
+	if test $have_html = no; then
+	    AC_MSG_WARN([$WEBKIT not found -- not building the HTML widget])
+	fi
+	PKG_CHECK_MODULES([GMODULE], [gmodule-2.0], [have_gmodule=yes], [have_gmodule=no])
+	if test $have_gmodule = no; then
+	    AC_MSG_WARN([GModule not found -- not building the HTML widget])
+	    have_html=no
+	fi
+    fi
 else
     have_html=no
 fi
 AC_SUBST([HTML_CFLAGS])
 AC_SUBST([HTML_LIBS])
+if test x$build_html = xyes && test x$with_gtk = xgtk3; then
+## because webkitgtk is dynamically loaded
+HTML_LIBS=
+fi
 AM_CONDITIONAL([HTML], [test x$have_html = xyes])
+AC_SUBST([GMODULE_CFLAGS])
+AC_SUBST([GMODULE_LIBS])
+AM_CONDITIONAL([GMODULE], [test x$have_gmodule = xyes])
 
 if test x$have_html = xyes; then
-    AC_DEFINE([HAVE_HTML], [1], [Define this if you have webkit installed])
+    AC_DEFINE([HAVE_HTML], [1], [Define this if the webkitgtk library is installed])
     if test x$with_gtk = xgtk3; then
-        AC_DEFINE([USE_WEBKIT2], [1], [Define this if you use webkit2 API])
+	AC_DEFINE_UNQUOTED([WEBKITGTK_LIBNAME], ["lib$WEBKIT.so"], [Define the webkitgtk library file name to be dynamically loaded])
     fi
 fi
 
@@ -196,7 +213,12 @@ echo "Build configuration:"
 echo "  GTK+ version         - $with_gtk"
 echo "  Path to rgb.txt      - $with_rgb"
 echo "  Status icon          - $build_tray"
-echo "  HTML widget          - $have_html"
+printf "%s" "  HTML widget          - $have_html"
+if ! test x$have_gmodule = xyes && test x$with_gtk = xgtk3; then
+    echo " (GModule not found)"
+else
+    echo
+fi
 echo "  Spell checking       - $have_spell"
 echo "  GtkSourceView        - $have_sourceview"
 echo "  GIO support          - $have_gio"

@@ -43,6 +43,8 @@ if gtk_layer_shell.found()
 	cfg.set('HAVE_GTK_LAYER_SHELL', 1)
 endif
 
+# TODO add html widget (webkit2gtk-4.1 && gtk3, default false)
+
 configure_file(
 	output : 'config.h',
 	configuration : cfg,
