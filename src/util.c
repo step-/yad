@@ -54,6 +54,7 @@ read_settings (void)
   settings.max_tab = 100;
   settings.debug = FALSE;
   settings.large_preview = FALSE;
+  settings.search_width = -1;
 
   settings.icon_theme = gtk_icon_theme_get_default ();
 
@@ -91,6 +92,8 @@ read_settings (void)
             settings.debug = g_key_file_get_boolean (kf, "General", "debug", NULL);
           if (g_key_file_has_key (kf, "General", "large_preview", NULL))
             settings.large_preview = g_key_file_get_boolean (kf, "General", "large_preview", NULL);
+          if (g_key_file_has_key (kf, "General", "search_width", NULL))
+            settings.search_width = g_key_file_get_integer (kf, "General", "search_width", NULL);
         }
 
       g_key_file_free (kf);
@@ -126,7 +129,7 @@ write_settings (void)
   set_comment(kf, "timeout", _("Default timeout (0 for no timeout)"));
   g_key_file_set_string (kf, "General", "timeout_indicator", settings.to_indicator);
   set_comment(kf, "timeout_indicator",
-      _(" Position of timeout indicator (top, bottom, left, right, none)"));
+      _("Position of timeout indicator (top, bottom, left, right, none)"));
   g_key_file_set_boolean (kf, "General", "show_remain", settings.show_remain);
   set_comment(kf, "show_remain", _("Show remaining seconds in timeout indicator"));
   g_key_file_set_boolean (kf, "General", "combo_always_editable", settings.combo_always_editable);
@@ -145,6 +148,8 @@ write_settings (void)
   set_comment(kf, "debug", _("Enable debug mode and warn about deprecated features"));
   g_key_file_set_boolean (kf, "General", "large_preview", settings.large_preview);
   set_comment(kf, "large_preview", _("Use large previews in file selection dialogs"));
+  g_key_file_set_integer (kf, "General", "search_width", settings.search_width);
+  set_comment(kf, "search_width", _("GTK+-3 search bar width"));
 
   context = g_key_file_to_data (kf, NULL, NULL);
 
