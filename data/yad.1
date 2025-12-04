@@ -585,10 +585,13 @@ Additional data in command line interprets as a default values for form fields. 
 Open specified location. \fIURI\fP can be a filename or internet address. If \fIURI\fP is not an existing file and protocol is not specified a prefix \fIhttp://\fP will be added to \fIURI\fP.
 .TP
 .B \-\-browser
-Turn on browser mode. In this mode all clicked links will be opened in html widget and command \fIOpen\fP will be added to context menu.
+Turn on browser mode. In this mode all clicked links will be opened in the HTML widget,
+an \fIOpen\fP item will be added to the context menu (if \-\-\fBfile-op\fP is enabled),
+and the \fICtrl+F\fP key will open the search bar.
+This option disables the \-\-\fBprint-uri\fP option.
 .TP
 .B \-\-print-uri
-Print clicked links to standard output. By default clicked links opens with \fIxdg-open\fP.
+Print clicked links to standard output. By default clicked links open with \fIxdg-open\fP.
 .TP
 .B \-\-mime=\fIMIME\fP
 Set mime type of data passed to standard input to \fIMIME\fP. Default is \fItext/html\fP.
@@ -597,13 +600,22 @@ Set mime type of data passed to standard input to \fIMIME\fP. Default is \fItext
 Set encoding of data passed to standard input to \fIENCODING\fP. Default is \fIUTF-8\fP.
 .TP
 .B \-\-uri-handler=\fICMD\fP
-Set external handler for clicked uri. \fI%s\fP will be replaced by activated uri. Return code of the \fICMD\fP must be \fI0\fP for keep working, \fI1\fP for ignoring uri and \fI2\fP for downloading uri. This option works only in browser mode. There are two environment variables available in handler - \fIYAD_HTML_BUTTON\fP with value of pressed mouse button and \fIYAD_HTML_STATE\fP with value of bit mask with the state of the modifier keys.
+Set external handler for clicked uri. \fI%s\fP will be replaced by activated uri. Return code of the \fICMD\fP must be \fI0\fP to keep working, \fI1\fP to ignore uri and \fI2\fP to download uri. This option works only in browser mode. There are two environment variables available in handler - \fIYAD_HTML_BUTTON\fP with value of pressed mouse button and \fIYAD_HTML_STATE\fP with value of bit mask with the state of the modifier keys.
 .TP
 .B \-\-user-agent=\fISTRING\fP
 Set user agent string. Default is \fIYAD-Webkit (@VERSION@)\fP
 .TP
-.B \-\-user-style=\fIURI\fP
-Set path or uri to custom user styles. Path to local file can be an absolute file name or uri with \fIfile://\fP prefix.
+.B \-\-user-style=\fISTRING\fP
+Load custom user styles from file or arbitrary data. \fISTRING\fP may be a path to local file with CSS code or CSS code itself.
+.TP
+.B \-\-disable-search
+Disable search bar.
+.TP
+.B \-\-file-op
+Enable file operations. This option adds an \fIOpen\fP menu item to the HTML dialog's popup menu.
+.TP
+.B \-\-wk-prop=\fIPROP\fP
+Set additional WebKit setting. This option may be used multiple times. \fIPROP\fP must be in the form "setting-name value". First character of value must be a type identifier \fIb\fP for booleans, \fIi\fP for integers and \fIs\fP for strings. The values itself following by a colon. List of possible settings can be found on this page - https://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html
 .PP
 When dialog works in browser mode additional data in command line interprets as \fIURI\fP.
 
@@ -906,6 +918,9 @@ Close the dialog when the \fIsingle-progress\fP mode bar reaches 100%.
 .B \-\-pulsate
 Auto-pulsate the progress bar. This option works in \fIsingle-progress\fP mode only.
 Use \fB\-\-bar\fP=\fILABEL:PERM\fP or \fB\-\-bar\fP=\fILABEL:PULSE\fP to create other kinds of progress bars as previously explained.
+.TP
+.B \-\-scroll
+Make HTML widget's layout scrollable.
 .TP
 .B \-\-enable-log\fI[=TEXT]\fP
 Show log window. This window gathers all stdin lines that start with \fI#\fP instead of setting progress bar text.
