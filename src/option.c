@@ -227,6 +227,8 @@ static GOptionEntry common_options[] = {
     N_("Show hidden files in file selection dialogs"), NULL },
   { "filename", 0, 0, G_OPTION_ARG_FILENAME, &options.common_data.uri,
     N_("Set source filename"), N_("FILENAME") },
+  { "mime", 0, 0, G_OPTION_ARG_STRING, &options.common_data.mime,
+    N_("Set mime type of input data"), N_("TYPE") },
   { "vertical", 0, 0, G_OPTION_ARG_NONE, &options.common_data.vertical,
     N_("Set vertical orientation"), NULL },
   { "key", 0, 0, G_OPTION_ARG_INT, &options.common_data.key,
@@ -237,6 +239,10 @@ static GOptionEntry common_options[] = {
     N_("Set type of output for boolean values (T, t, Y, y, O, o, 1)"), N_("TYPE") },
   { "scroll", 0, 0, G_OPTION_ARG_NONE, &options.common_data.scroll,
     N_("Make main widget scrollable"), NULL },
+  { "disable-search", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &options.common_data.enable_search,
+    N_("Disable search in html dialog"), NULL },
+  { "file-op", 0, 0, G_OPTION_ARG_NONE, &options.common_data.file_op,
+    N_("Enable file operations"), NULL },
 #if GLIB_CHECK_VERSION(2,30,0)
   { "iec-format", 0, G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, set_size_format,
     N_("Use IEC (base 1024) units with for size values"), NULL },
@@ -389,7 +395,9 @@ static GOptionEntry html_options[] = {
   { "user-agent", 0, 0, G_OPTION_ARG_STRING, &options.html_data.user_agent,
     N_("Set user agent string"), N_("STRING") },
   { "user-style", 0, 0, G_OPTION_ARG_STRING, &options.html_data.user_style,
-    N_("Set path or uri to user styles"), "URI" },
+    N_("Set custom user style"), N_("STRING") },
+  { "wk-prop", 0, 0, G_OPTION_ARG_STRING_ARRAY, &options.html_data.wk_props,
+    N_("Set WebKit property"), N_("PROP") },
   { NULL }
 };
 #endif
@@ -1607,6 +1615,8 @@ yad_options_init (void)
   options.common_data.complete = YAD_COMPLETE_SIMPLE;
   options.common_data.icon_size = 0;
   options.common_data.scroll = FALSE;
+  options.common_data.enable_search = TRUE;
+  options.common_data.file_op = FALSE;
 #if GLIB_CHECK_VERSION(2,30,0)
   options.common_data.size_fmt = G_FORMAT_SIZE_DEFAULT;
 #endif

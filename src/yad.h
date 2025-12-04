@@ -349,6 +349,7 @@ typedef struct {
   gchar *uri_cmd;
   gchar *user_agent;
   gchar *user_style;
+  gchar **wk_props;
 } YadHtmlData;
 #endif
 
@@ -483,6 +484,7 @@ typedef struct {
 
 typedef struct {
   gchar *uri;
+  gchar *mime;
   gchar *font;
   gchar *separator;
   gchar *item_separator;
@@ -503,6 +505,7 @@ typedef struct {
   gboolean hide_text;
   gint icon_size;
   gboolean enable_search;
+  gboolean file_op;
   gboolean scroll;
 #if GLIB_CHECK_VERSION(2,30,0)
   GFormatSizeFlags size_fmt;
@@ -601,6 +604,7 @@ typedef struct {
   guint max_tab;
   gboolean debug;
   gboolean large_preview;
+  gint search_width;
 } YadSettings;
 
 extern YadSettings settings;
