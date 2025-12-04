@@ -597,7 +597,7 @@ text_create_widget (GtkWidget * dlg)
       g_signal_connect_after (G_OBJECT (text_buffer), "changed", G_CALLBACK (linkify_cb), regex);
     }
 
-  gtk_container_add (GTK_CONTAINER (w), text_view);
+  gtk_container_add (GTK_CONTAINER (sw), tv);
 
   /* load data */
   if (options.common_data.uri)

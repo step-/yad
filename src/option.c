@@ -1743,8 +1743,8 @@ yad_options_init (void)
   options.notebook_data.tabs = NULL;
   options.notebook_data.borders = 5;
   options.notebook_data.pos = GTK_POS_TOP;
-  options.notebook_data.expand = FALSE;
   options.notebook_data.active = 1;
+  options.notebook_data.expand = FALSE;
 
 #ifdef HAVE_TRAY
   /* Initialize notification data */
