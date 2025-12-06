@@ -35,12 +35,14 @@ See also the [Preparing yadL scripts for yadU] Wiki page.
 - A Meson build (thanks Dima Krasner @dimakr) [0.42.83].
 - GTK+-3 Layer-shell support using the new `--layer` and `--edge` options (thanks Dima Krasner @dimakr) [0.42.83].
 - New `"expand"` type for the `--buttons-layout` option (GTK+-3 only) [0.42.86].
+- Only the GTK+-3 version of the HTML dialog is supported.
+  The binary is built without hard dependency on WebKitGtk because WebKit is loaded dynamically if the `libwebkit2gtk` shared library is detected at runtime. [0.42.87]
 
 ## Frozen features
 
-Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's HTML dialog widget. Pull requests are welcome!
+Due to Fatdog64 Linux no longer packaging the Webkit engine, I stopped compiling and maintaining yadL's GTK+-2 version of the HTML dialog.
 
-The POT and PO translation files are no longer maintained. Pull requests are welcome!
+The POT and PO translation files are in sore state. Pull requests are welcome!
 
 ## Historical bug fixes
 
@@ -82,6 +84,10 @@ Abbreviations:
 
 Version ?  (yadU's current development master)
 
+Version [14.2]
+
+- `[+]` cbc0427 fix zooming in html dialog [0.42.87]
+- `[+]` 3b7420e Fix loading file from command line (without --uri argument) in html dialog [0.42.87]
 - `[!]` d8c32b3 some fixes for editor settings in yad settings GUI script
 - `[>]` 995a89e fix type conversion
 - `[+]` d40c620 fix return value [0.42.86]
@@ -89,6 +95,8 @@ Version ?  (yadU's current development master)
 Version [14.1]
 
 Version [14.0]
+
+- `[+]` 462b6c9 little improvement in html dialog [0.42.87]
 
 Version [13.0]
 
@@ -102,14 +110,15 @@ Version [13.0]
 
 Version [12.3]
 
-- `[ ]` fixed setting webkit properties and user defined style sheet in html dialog
-- `[ ]` improve stdin handler for html dialog
+- `[+]` 11d8007 improve stdin handler for html dialog [0.42.87]
+- `[+]` f9adf0e fixed setting webkit properties and user defined style sheet in html dialog [0.42.87]
 - `[ ]` update copyright notice
 
 Version [12.2]
 
-- `[ ]` add --auto-scroll option as an alias to --tail
-- `[ ]` fixed jump to anchor in simple mode of html dialog
+- `[+]` 648b2ba add --auto-scroll (alias for --tail) [0.42.87]
+- `[+]` 1c9ca82 fixed jump to anchor in simple mode of html dialog [0.42.87]
+- `[+]` ea77e6b rework --file-op option ... works in html and picture dialogs ... required to add open action in html dialog popup [0.42.87]
 - `[?]` fixed parsing data from stdin for tree mode of list dialog
 - `[ ]` fixed man page
 - `[ ]` code cleanup
@@ -132,8 +141,11 @@ Version [12.0]
 
 Version [11.1]
 
+- `[+]` fb68580 add --scroll to progress dialog and reorganize scrolling policy [0.42.87]
+- `[+]` a1a25e7 fix handling uri click in browser mode for html dialog [0.42.87]
 - `[ ]` fix input parsing for notification icon
 - `[ ]` fix parsing desktop files for icons dialog
+- TODO: next two seem done with the new html.c but for gtk3 only
 - `[ ]` fix link handling for browser mode in html dialog
 - `[ ]` improve setting user-defined image in about dialog
 
@@ -148,6 +160,8 @@ Version [10.1]
 
 Version [10.0]
 
+- `[+]` c492c06 add ctrl+q shortcut to html dialog [0.42.87]
+- `[+]` 314557f add search to html dialog [0.42.87]
 - `[ ]` many improvements in text-info dialog
   - `[+]` uses monospace font by default [0.42.76]
   - `[ ]` added search-bar instead of popup search field (can be disabled)
@@ -178,6 +192,8 @@ Version [9.1]
 
 Version [9.0]
 
+- `[+]` 8ead6ad added enable-write-console-messages-to-stdout to html.c [0.42.87]
+- `[+]` 389ae0e add --wk-prop option to html dialog [0.42.87]
 - `[+]` add --css option (GTK+-3) [0.42.86]
 - `[ ]` implement user's customizable --about dialog
 - `[?]` fix passing focus to children in notebook and paned dialogs
@@ -195,8 +211,17 @@ Version [9.0]
 - `[>]` add --css option (--gtkrc marked as deprecated)
 - `[ ]` lots of bug fixes
 
+Version [8.5]
+
+- `[+]` 171c9ca fix uri handler in html dialog [0.42.87]
+
+Version [8.0]
+
+- `[+]` fix scroll policy (option) parsing [0.42.87]
+
 Version [7.3]
 
+- `[+]` improve settings of YAD_XID [0.42.87]
 - `[+]` fix parsing separator field for form dialog (thanks to Dmitry Butskoy)
 - `[ ]` fix handling user defined size of dialog with --width and --height arguments
 
@@ -276,6 +301,7 @@ Version [2.0]
 
 Version [1.0]
 
+- `[+]` dcfe11a add custom actions to context menu in **GTK3** html dialog [0.42.87]
 - `[-]` completely removed support of gtk+-2.0
 - `[+]` minimum required gtk+ version bump to 3.22.0
 - `[>]` add --formatted option to text-info dialog for displaing text with pango markup
@@ -365,7 +391,9 @@ See the NEWS file for older versions.
 [0.42.84]: https://github.com/step-/yad/releases/tag/0.42.84
 [0.42.85]: https://github.com/step-/yad/releases/tag/0.42.85
 [0.42.86]: https://github.com/step-/yad/releases/tag/0.42.86
+[0.42.87]: https://github.com/step-/yad/releases/tag/0.42.87
 
+[14.2]: https://github.com/v1cont/yad/releases/tag/v14.2
 [14.1]: https://github.com/v1cont/yad/releases/tag/v14.1
 [14.0]: https://github.com/v1cont/yad/releases/tag/v14.0
 [13.0]: https://github.com/v1cont/yad/releases/tag/v13.0
@@ -381,6 +409,8 @@ See the NEWS file for older versions.
 [9.2]: https://github.com/v1cont/yad/releases/tag/v9.2
 [9.1]: https://github.com/v1cont/yad/releases/tag/v9.1
 [9.0]: https://github.com/v1cont/yad/releases/tag/v9.0
+[8.5]: https://github.com/v1cont/yad/releases/tag/v8.5
+[8.0]: https://github.com/v1cont/yad/releases/tag/v8.0
 [7.3]: https://github.com/v1cont/yad/releases/tag/v7.3
 [7.2]: https://github.com/v1cont/yad/releases/tag/v7.2
 [7.1]: https://github.com/v1cont/yad/releases/tag/v7.1
