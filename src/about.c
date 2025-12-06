@@ -15,6 +15,7 @@
  * along with YAD. If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 2008-2019, Victor Ananjevsky <ananasik@gmail.com>
+ * Copyright (C) 2019-2025, step https://github.com/step-
  */
 
 #include "yad.h"
@@ -74,7 +75,7 @@ yad_about (void)
                 "name", PACKAGE_NAME,
                 "version", PACKAGE_VERSION,
                 "copyright", "Copyright \xc2\xa9 2008-2019, Victor Ananjevsky\n"
-                             "Copyright \xc2\xa9 2019-2023, step",
+                             "Copyright \xc2\xa9 2019-2025, step",
                 "comments", comments,
                 "authors", roles,
                 "website", "",

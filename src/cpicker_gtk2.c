@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with YAD. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2023, step
+ * Copyright (C) 2023, step https://github.com/step-
  */
 
 /* Some code adapted from GtkColorSelection widget (gtk/gtkcolorsel.c GTK+-2.24.33) */

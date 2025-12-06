@@ -16,6 +16,7 @@
  * along with YAD. If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 2020-2022, Victor Ananjevsky <ananasik@gmail.com>
+ * Copyright (C) 2019-2025, step https://github.com/step-
  */
 
 /* This code getted from deprecated GtkColorSelection widget (gtk+-3.24.33) */

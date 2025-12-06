@@ -15,6 +15,7 @@
  * along with YAD. If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (C) 2008-2019, Victor Ananjevsky <ananasik@gmail.com>
+ * Copyright (C) 2019-2025, step https://github.com/step-
  */
 
 #include <limits.h>
