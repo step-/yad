@@ -1141,7 +1141,8 @@ Close dialog with 0 exit code, printing output.
 .TP
 .B SIGUSR2
 Close dialog with 1 exit code, suppressing output.
-.B SIGTERM
+.TP
+.B SIGINT, SIGTERM
 Same as SIGUSR2.
 
 .SH EXIT STATUS
@@ -1162,8 +1163,7 @@ Output is suppressed.
 The user pressed \fIEsc\fP or closed the dialog window using window functions/controls.
 Output is suppressed.
 .TP
-Custom exit codes can be specified via the \fB\-\-button\fI option;
-odd codes and 70 (but not 252) suppress output.
+Custom exit codes can be specified via the \fB\-\-button\fP option; odd codes and 70 (but not 252) suppress output.
 
 .SH WIDGET NAMES
 .TP
