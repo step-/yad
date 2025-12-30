@@ -1,4 +1,4 @@
-.TH YAD 1 "November 25, 2025"  "yad maintained for GTK+ 2 and 3" "User Commands"
+.TH YAD 1 "December 30, 2025"  "yad maintained for GTK+ 2 and 3" "User Commands"
 .SH NAME
 yad \- display GTK+ dialogs from shell scripts or command-line
 
@@ -197,10 +197,10 @@ Make window visible on all desktops.
 Make window fixed width and height.
 .TP
 .B \-\-center
-Place window in the center of the screen.
+Place window in the center of the screen. This option affects the initial placement but not subsequent moves.
 .TP
 .B \-\-center-keep
-Keep window in the center of the screen (behavior varies according to the window manager).
+Lock window in the center of the screen (behavior varies according to the window manager).
 .TP
 .B \-\-mouse
 Place window under mouse position.
@@ -1137,26 +1137,33 @@ and in dialogs that plug into a notebook or paned dialog.
 .SH USER DEFINED SIGNALS
 .TP
 .B SIGUSR1
-Close dialog with 0 exit code.
+Close dialog with 0 exit code, printing output.
 .TP
 .B SIGUSR2
-Close dialog with 1 exit code.
+Close dialog with 1 exit code, suppressing output.
+.B SIGTERM
+Same as SIGUSR2.
 
 .SH EXIT STATUS
 .TP
+Unless otherwise noted, yad prints dialog results to stdout only on even exit codes; odd codes suppress output.
+.TP
 .B 0
-The user has pressed \fIOK\fP button
+The user clicked the \fIOK\fP button.
 .TP
 .B 1
-The user has pressed \fICancel\fP button
+The user clicked the \fICancel\fP button.
 .TP
 .B 70
-The dialog has been closed because the timeout has been reached.
+The \fB\-\-timeout\fP option expired, so yad closed the dialog.
+Output is suppressed.
 .TP
 .B 252
-The dialog has been closed by pressing \fIEsc\fP or used the window functions to close the dialog
+The user pressed \fIEsc\fP or closed the dialog window using window functions/controls.
+Output is suppressed.
 .TP
-Exit codes for user-specified buttons must be specified in command line. Even exit code mean to print result, odd just return exit code.
+Custom exit codes can be specified via the \fB\-\-button\fI option;
+odd codes and 70 (but not 252) suppress output.
 
 .SH WIDGET NAMES
 .TP
