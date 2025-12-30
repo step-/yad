@@ -1,10 +1,10 @@
 # COMPARISON BETWEEN THIS FORK AND ITS PARENT PROJECT
 
-For short, I will use **yadL** for the products of this fork, and **yadU** for the parent project's. [More info](README.md)
+Briefly, **yadL** denotes this fork's output; **yadU** denotes the parent project. [More info](README.md)
 
-Numbered notes are grouped together at the end of this long page.
+Numbered notes appear at the end of this page.
 
-The symbol (§)N refers to the Pull Request (PR) number N the yadL repository makes to the yadU repository ([list of pull requests]).
+The symbol (§)N refers to Pull Request N submitted by yadL to yadU ([list of pull requests]).
 
 ## YadL versioning scheme
 
@@ -84,6 +84,8 @@ Abbreviations:
 
 Version ?  (yadU's current development master)
 
+- `[+]` 4f0d5e5 Handle SIGTERM and SIGINT for clean exit [0.42.88]
+
 Version [14.2]
 
 - `[+]` cbc0427 fix zooming in html dialog [0.42.87]
@@ -107,6 +109,7 @@ Version [13.0]
 - `[+]` 1d402f7 add some null-pointer checks in form dialog code [0.42.67]
 - `[+]` ff81778 remove some warnings [0.42.66]
 - `[+]` c8e9ef2 fix UI not updated when sync command runs [0.42.66] (§)210
+- `[+]` 19dea7a fix the fixed. keep user defined window size when --fixed option is used [0.42.88]
 
 Version [12.3]
 
@@ -224,6 +227,7 @@ Version [7.3]
 - `[+]` improve settings of YAD_XID [0.42.87]
 - `[+]` fix parsing separator field for form dialog (thanks to Dmitry Butskoy)
 - `[ ]` fix handling user defined size of dialog with --width and --height arguments
+- `[+]` 8442c52 removed unneeded code for size settings... [0.42.88]
 
 Version [7.2]
 
@@ -257,7 +261,7 @@ Version [6.0]
 - `[+]` add link field to --form dialog [0.42.47]
 - `[-]` returning customizable options for --text-info dialog ⁽⁷⁾ [0.42.44]
 - `[+]` fix yad behavior outside X11 (special thanks to Michael Weiser) ⁽⁸⁾ [0.42.59]
-- `[?]` improve dialog window placement [8b0e5af]
+- `[+]` 8b0e5af resize and place dialog from "realize" signal handler [0.42.88]
 - `[+]` update translations
 
 Version [5.0]
@@ -392,6 +396,7 @@ See the NEWS file for older versions.
 [0.42.85]: https://github.com/step-/yad/releases/tag/0.42.85
 [0.42.86]: https://github.com/step-/yad/releases/tag/0.42.86
 [0.42.87]: https://github.com/step-/yad/releases/tag/0.42.87
+[0.42.88]: https://github.com/step-/yad/releases/tag/0.42.88
 
 [14.2]: https://github.com/v1cont/yad/releases/tag/v14.2
 [14.1]: https://github.com/v1cont/yad/releases/tag/v14.1
