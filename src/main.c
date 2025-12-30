@@ -357,7 +357,16 @@ realize_cb (GtkWidget *dlg, gpointer d)
       gtk_widget_set_size_request (dlg, options.data.width, options.data.height);
       gtk_window_set_resizable (GTK_WINDOW (dlg), FALSE);
     }
-  else
+#if GTK_CHECK_VERSION(3,0,0)
+  else if (options.mode == YAD_MODE_PANED)
+    {
+      /* Workaround: Lock horizontal GtkPaned's window size temporarily so it expands
+       * both panes properly on first show. Restore via idle window_set_resizable_cb. */
+      gtk_widget_set_size_request (dlg, options.data.width, options.data.height);
+      gtk_window_set_resizable (GTK_WINDOW (dlg), FALSE);
+    }
+#endif
+  if (TRUE)
     {
       gint cw, ch;
       /* get current window size for gtk_window_resize */
@@ -832,6 +841,15 @@ yad_print_result (void)
     }
 }
 
+#if GTK_CHECK_VERSION(3,0,0)
+static gboolean
+window_set_resizable_cb (gpointer data)
+{
+  gtk_window_set_resizable (GTK_WINDOW (data), !options.data.fixed);
+  return G_SOURCE_REMOVE;
+}
+
+#endif
 gint
 main (gint argc, gchar ** argv)
 {
@@ -1065,6 +1083,11 @@ main (gint argc, gchar ** argv)
       if (text && options.data.selectable_labels)
         gtk_label_select_region (GTK_LABEL (text), 0, 0);
 
+#if GTK_CHECK_VERSION(3,0,0)
+      if (options.mode == YAD_MODE_PANED)
+        g_idle_add ((GSourceFunc) window_set_resizable_cb, dialog);
+
+#endif
       /* run main loop */
       gtk_main ();
 
