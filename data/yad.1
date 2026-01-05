@@ -962,7 +962,9 @@ Set text foreground color.  Ignored by GTK+-2 yad with \fIGtkSourceView\fP if \f
 Set text background color.  Ignored by GTK+-2 yad with \fIGtkSourceView\fP if \fI\-\-lang\fP or \fI\-\-filename\fP are given.
 .TP
 .B \-\-fontname=\fIFONTNAME\fP
-Set text font. \fIFONTNAME\fP must be in a Pango font description format. By default \fIMonospace\fP is used.
+Set text font. \fIFONTNAME\fP must be in Pango font description format.
+For GTK+-2 the default dialog font is \fIMonospace\fP for historical reasons.
+For GTK+-3 the system default font is used.
 .TP
 .B \-\-wrap
 Enable text wrapping.
