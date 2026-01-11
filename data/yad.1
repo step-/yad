@@ -60,6 +60,9 @@ Display notebook dialog.
 .B \-\-notification
 Display notification icon.
 .TP
+.B \-\-paned
+Display paned dialog.
+.TP
 .B \-\-print
 Display print dialog.
 .TP
@@ -120,10 +123,10 @@ See signal(7) for details about signals.
 Output X Window ID of a yad window to the specified file or stderr.
 .TP
 .B \-\-plug=\fIKEY\fP
-Plug the dialog into the upcoming yad \fB\-\-key\fP instance as a tab or pane. See \fINOTEBOOK\fP section for more.
+Plug the dialog into the upcoming yad \fB\-\-key\fP instance as a tab or pane. See the \fINOTEBOOK and PANED\fP section for more.
 .TP
 .B \-\-tabnum=\fINUMBER\fP
-Set the tab number of the plugged dialog. See \fINOTEBOOK\fP section for more.
+Set the tab number of the plugged dialog. See the \fINOTEBOOK and PANED\fP section for more.
 .TP
 .B \-\-text=\fISTRING\fP
 Set the dialog text.
@@ -1077,22 +1080,22 @@ Show program version and exit. Use \fI\-\-about\fP to view build options.
 Also the standard GTK+ options are accepted.
 
 .SH NOTEBOOK and PANED
-Notebook is a complex dialog which swallow other dialogs in his tabs.
-Dialogs identifies by unique key (integer) and must be runs in a special plug mode (\-\-plug option).
-Following example runs notebook dialog with two tabs, first has a simple text and second is an entry dialog.
+A notebook dialog swallows a set of plug dialogs in its tabs.
+Plug dialogs are identified by a unique key (integer), and must be started in plug mode before the notebook dialog by passing the \-\-plug option.
+The following example runs a notebook dialog with two tabs; the first one contains simple text, and the second is an entry dialog.
 
 .nf
-#! /bin/sh
+#! /bin/bash
 .sp
 yad \-\-plug=12345 \-\-tabnum=1 \-\-text="first tab with text" &> res1 &
 yad \-\-plug=12345 \-\-tabnum=2 \-\-text="second tab" \-\-entry &> res2 &
 yad \-\-notebook \-\-key=12345 \-\-tab="Tab 1" \-\-tab="Tab 2"
 .fi
 
-NOTE: The order of output results for tabs is undefined!
+NOTE: The order of output results of the tabs is undefined!
+Therefore, redirecting their output, as shown in the example, is important.
 
-Paned works in a same manner as a notebook with one restriction - only first and second plug dialogs
-will be swallowed to panes.
+A paned dialog works like a notebook but swallows the plug dialogs as panes instead of tabs, and allows exactly two panes (plug dialogs).
 
 .SH NOTIFICATION
 Allows commands to be sent to yad in the form \fBcommand:args\fP.
