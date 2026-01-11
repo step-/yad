@@ -60,10 +60,12 @@ paned_create_widget (GtkWidget * dlg)
   gtk_paned_set_position (GTK_PANED (w), options.paned_data.splitter);
 
   s = gtk_socket_new ();
+  gtk_widget_set_can_focus (s, TRUE);
   gtk_paned_add1 (GTK_PANED (w), s);
   g_object_set_data (G_OBJECT (w), "s1", s);
 
   s = gtk_socket_new ();
+  gtk_widget_set_can_focus (s, TRUE);
   gtk_paned_add2 (GTK_PANED (w), s);
   g_object_set_data (G_OBJECT (w), "s2", s);
 
@@ -86,6 +88,20 @@ paned_swallow_childs (void)
     gtk_socket_add_id (GTK_SOCKET (s1), tabs[1].xid);
   if (tabs[2].pid != -1)
     gtk_socket_add_id (GTK_SOCKET (s2), tabs[2].xid);
+
+  switch (options.paned_data.focused)
+    {
+    case 1:
+      gtk_widget_child_focus (s2, GTK_DIR_TAB_FORWARD); /* keep */
+      gtk_widget_child_focus (s1, GTK_DIR_TAB_FORWARD);
+      break;
+    case 2:
+      gtk_widget_child_focus (s2, GTK_DIR_TAB_FORWARD);
+      break;
+    default:
+      if (options.debug)
+        g_printerr (_("WARNING: wrong focused pane number %d. Must be 1 or 2\n"), options.paned_data.focused);
+    }
 }
 
 void
