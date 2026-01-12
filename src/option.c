@@ -131,7 +131,7 @@ static GOptionEntry general_options[] = {
 #if !GTK_CHECK_VERSION(3,0,0)
     N_("Set button layout type (spread, edge, start, end or center)"), N_("TYPE") },
 #else
-    N_("Set button layout type (spread, edge, start, end, center or [not GTK+-2] expand)"), N_("TYPE") },
+    N_("Set button layout type (spread, edge, start, end, center or [not GTK+-2] compact)"), N_("TYPE") },
 #endif
   { "no-markup", 0, 0, G_OPTION_ARG_NONE, &options.data.no_markup,
     N_("Don't use pango markup language in dialog's text"), NULL },
@@ -1067,11 +1067,11 @@ set_buttons_layout (const gchar * option_name, const gchar * value, gpointer dat
   else if (strcasecmp (value, "center") == 0)
     options.data.buttons_layout = GTK_BUTTONBOX_CENTER;
 #if GTK_CHECK_VERSION(3,0,0)
-  else if (strcasecmp (value, "expand") == 0)
+  else if (strcasecmp (value, "compact") == 0)
     options.data.buttons_layout = GTK_BUTTONBOX_EXPAND;
 #endif
   else
-    g_printerr (_("Unknown buttons layout type: %s\n"), value);
+    g_printerr (_("Unknown button layout type: %s\n"), value);
 
   return TRUE;
 }
