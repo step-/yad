@@ -46,13 +46,13 @@ Display font selection dialog.
 Display form dialog
 .TP
 .B \-\-html
-Display HTML dialog
+Display HTML dialog; not available for GTK+-2
 .TP
 .B \-\-list
 Display list dialog
 .TP
 .B \-\-multi-progress
-Display multi-progress bars dialog.
+Display multi-progress bar dialog.
 .TP
 .B \-\-notebook
 Display notebook dialog.
@@ -179,9 +179,6 @@ Do not close dialog if \fIEscape\fP was pressed.
 .B \-\-always-print-result
 Print result for any of the return codes. This option doesn't work if timeout was reached or \fIEscape\fP was pressed.
 .TP
-.B \-\-dialog-sep
-Show separator between dialog and buttons. Only works with GTK+-2.0.
-.TP
 .B \-\-use-interp[=\fIINTERP\fP]
 Run all commands under the specified interpreter. Default \fIINTERP\fP is \fIsh -c "%s"\fP. Using this option can reduce quoting in commands. If \fI%s\fP is included in INTERP, it will be replaced by the command otherwise a space and the command will be appended to \fIINTERP\fP.
 If option \fI\-\-use-interp\fP is not specified, yad executes commands directly as they are.
@@ -248,10 +245,10 @@ Set default exit code to \fINUMBER\fP instead of \fI0\fP.
 .TP
 .B \-\-css=\fISTRING\fP
 Read and parse additional GTK+ CSS styles from given data. If \fISTRING\fP is a filename, file contents are loaded otherwise \fISTRING\fP itself is processed as CSS data.
-This option affects GTK+-3 builds only.
+This option does not affect GTK+-2 yad.
 .TP
 .B \-\-gtkrc=\fIFILENAME\fP
-Read and parse additional GTK+ settings from the given file. This option affects GTK+-2 builds only.
+Read and parse additional GTK+ settings from the given file. This option affects GTK+-2 yad only.
 .TP
 .B \-\-hscroll-policy=\fITYPE\fP
 Set the policy type for horizontal scrollbars. \fITYPE\fP can be one of the \fIauto\fP, \fIalways\fP or \fInever\fP. Default is \fIauto\fP.
@@ -318,8 +315,8 @@ Add screen color picker button.
 Add opacity to output color string.
 .TP
 .B \-\-palette=\fI[FILENAME]\fP
-Show palette and set predefined colors from given filename.
-By default yad use file \fI/etc/X11/rgb.txt\fP.
+Show palette and set predefined colors from the given \fIFILENAME\fP.
+By default yad uses file \fI/etc/X11/rgb.txt\fP.
 .TP
 .B \-\-expand-palette
 Expander for list of user-defined colors will be initially opened.
@@ -562,7 +559,7 @@ Make form scrollable.
 .TP
 .B \-\-homogeneous
 Make form field heights the same, and column widths the same.
-This option does not affect GTK+-2 builds.
+This option does not affect GTK+-2 yad.
 .TP
 .B \-\-changed-action=\fICMD\fP
 Run \fICMD\fP when \fICHK\fP, \fICB\fP or \fISW\fP field value is changed. Command runs with two arguments - number of changed field and its current value.
@@ -582,7 +579,7 @@ Output index of active element instead of text for combo-box fields.
 .PP
 Additional data in command line interprets as a default values for form fields. A special value \fI@disabled@\fP makes corresponding field inactive. If no extra arguments specified in a command line, data will be read from stdin, one value per line. Cycled reading means that for \fIN\fP fields \fIN+1\fP value will replace the first field. Empty values are skipped when reading from stdin.
 
-.SS HTML options
+.SS HTML options; not available for GTK+-2
 .TP
 .B \-\-uri=\fIURI\fP
 Open specified location. \fIURI\fP can be a filename or internet address. If \fIURI\fP is not an existing file and protocol is not specified a prefix \fIhttp://\fP will be added to \fIURI\fP.

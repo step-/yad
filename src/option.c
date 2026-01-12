@@ -129,9 +129,9 @@ static GOptionEntry general_options[] = {
     N_("Don't show buttons"), NULL },
   { "buttons-layout", 0, 0, G_OPTION_ARG_CALLBACK, set_buttons_layout,
 #if !GTK_CHECK_VERSION(3,0,0)
-    N_("Set buttons layout type (spread, edge, start, end or center)"), N_("TYPE") },
+    N_("Set button layout type (spread, edge, start, end or center)"), N_("TYPE") },
 #else
-    N_("Set buttons layout type (spread, edge, start, end, center or expand)"), N_("TYPE") },
+    N_("Set button layout type (spread, edge, start, end, center or [not GTK+-2] expand)"), N_("TYPE") },
 #endif
   { "no-markup", 0, 0, G_OPTION_ARG_NONE, &options.data.no_markup,
     N_("Don't use pango markup language in dialog's text"), NULL },
@@ -361,7 +361,7 @@ static GOptionEntry form_options[] = {
   { "scroll", 0, 0, G_OPTION_ARG_NONE, &options.form_data.scroll,
     N_("Make form scrollable"), NULL },
   { "homogeneous", 0, 0, G_OPTION_ARG_NONE, &options.form_data.homogeneous,
-    N_("Make form field heights the same, and column widths the same"), NULL },
+    N_("Make form field heights the same, and column widths the same [not GTK+-2]"), NULL },
   { "output-by-row", 0, 0, G_OPTION_ARG_NONE, &options.form_data.output_by_row,
     N_("Order output fields by rows"), NULL },
   { "focus-field", 0, 0, G_OPTION_ARG_INT, &options.form_data.focus_field,
@@ -380,7 +380,7 @@ static GOptionEntry form_options[] = {
 #ifdef HAVE_HTML
 static GOptionEntry html_options[] = {
   { "html", 0, G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &html_mode,
-    N_("Display HTML dialog"), NULL },
+    N_("Display HTML dialog [not GTK+-2]"), NULL },
   { "uri", 0, 0, G_OPTION_ARG_STRING, &options.html_data.uri,
     N_("Open specified location"), "URI" },
   { "browser", 0, 0, G_OPTION_ARG_NONE, &options.html_data.browser,
@@ -681,9 +681,9 @@ static GOptionEntry misc_options[] = {
   { "version", 0, 0, G_OPTION_ARG_NONE, &version_mode,
     N_("Print version"), NULL },
   { "css", 0, 0, G_OPTION_ARG_STRING, &options.css,
-    N_("Load additional CSS settings from file or string"), N_("STRING") },
+    N_("Load additional CSS settings from file or string [not GTK+-2]"), N_("STRING") },
   { "gtkrc", 0, 0, G_OPTION_ARG_FILENAME, &options.gtkrc_file,
-    N_("Load additional GTK settings from file"), N_("FILENAME") },
+    N_("Load additional GTK settings from file [GTK+-2 only]"), N_("FILENAME") },
   { "hscroll-policy", 0, 0, G_OPTION_ARG_CALLBACK, set_scroll_policy,
     N_("Set policy for horizontal scrollbars (auto, always, never)"), N_("TYPE") },
   { "vscroll-policy", 0, 0, G_OPTION_ARG_CALLBACK, set_scroll_policy,
@@ -1880,7 +1880,7 @@ yad_create_context (void)
 
 #ifdef HAVE_HTML
   /* Add html options entries */
-  a_group = g_option_group_new ("html", _("HTML options"), _("Show HTML options"), NULL, NULL);
+  a_group = g_option_group_new ("html", _("HTML options"), _("Show HTML options [not GTK+-2]"), NULL, NULL);
   g_option_group_add_entries (a_group, html_options);
   g_option_group_set_translation_domain (a_group, GETTEXT_PACKAGE);
   g_option_context_add_group (tmp_ctx, a_group);
