@@ -767,7 +767,7 @@ get_data_as_string (GtkTreeIter *iter)
 static void edit_row_cb (GtkMenuItem *item, gpointer data);
 
 static void
-double_click_cb (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer data)
+double_click_cb (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer d)
 {
   GtkTreeModel *model;
   GtkTreeIter iter;
