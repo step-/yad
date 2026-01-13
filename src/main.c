@@ -316,7 +316,12 @@ create_layout (GtkWidget *dlg)
 
       gtk_box_pack_start (GTK_BOX (layout), box, FALSE, FALSE, 0);
       if (imw)
-        gtk_box_pack_start (GTK_BOX (layout), imw, TRUE, TRUE, 0);
+      {
+        if (options.mode == YAD_MODE_ENTRY)
+          gtk_box_pack_start (GTK_BOX (layout), imw, TRUE, FALSE, 0);
+        else
+          gtk_box_pack_start (GTK_BOX (layout), imw, TRUE, TRUE, 0);
+      }
     }
   else
     {
@@ -331,7 +336,12 @@ create_layout (GtkWidget *dlg)
       if (text)
         gtk_box_pack_start (GTK_BOX (box), text, FALSE, FALSE, 0);
       if (imw)
-        gtk_box_pack_start (GTK_BOX (box), imw, TRUE, TRUE, 0);
+      {
+        if (options.mode == YAD_MODE_ENTRY)
+          gtk_box_pack_start (GTK_BOX (box), imw, TRUE, FALSE, 0);
+        else
+          gtk_box_pack_start (GTK_BOX (box), imw, TRUE, TRUE, 0);
+      }
 
       if (image)
         gtk_box_pack_start (GTK_BOX (layout), image, FALSE, FALSE, 0);
