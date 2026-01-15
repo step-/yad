@@ -522,6 +522,13 @@ parse_cmd_output (gchar *text)
   disable_changed = FALSE;
 }
 
+void
+form_focus_field (gint n)
+{
+  if (n > 0 && n <= n_fields)
+    gtk_widget_grab_focus (GTK_WIDGET (g_slist_nth_data (fields, n - 1)));
+}
+
 static void
 button_clicked_cb (GtkButton * b, gpointer d)
 {
@@ -548,9 +555,7 @@ button_clicked_cb (GtkButton * b, gpointer d)
       g_string_free (cmd, TRUE);
     }
 
-  /* set focus to specified field */
-  if (options.form_data.focus_field > 0 && options.form_data.focus_field <= n_fields)
-    gtk_widget_grab_focus (GTK_WIDGET (g_slist_nth_data (fields, options.form_data.focus_field - 1)));
+  form_focus_field (options.form_data.focus_field);
 }
 
 static void
@@ -1580,8 +1585,7 @@ form_create_widget (GtkWidget * dlg)
         }
     }
 
-  if (options.form_data.focus_field > 0 && options.form_data.focus_field <= n_fields)
-    gtk_widget_grab_focus (GTK_WIDGET (g_slist_nth_data (fields, options.form_data.focus_field - 1)));
+  /* focused field will grab focus in main() */
 
   disable_changed = FALSE;
 

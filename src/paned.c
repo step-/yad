@@ -70,6 +70,38 @@ paned_create_widget (GtkWidget * dlg)
   return w;
 }
 
+static void
+paned_focus_pane (gint n)
+{
+  GtkWidget *s1, *s2, *target = NULL;
+
+  if (n < 1 || n > 2)
+    {
+      if (options.debug)
+        g_printerr (_("WARNING: wrong focused pane number %d. Must be 1 or 2\n"), n);
+      return;
+    }
+
+  s1 = GTK_WIDGET (g_object_get_data (G_OBJECT (paned), "s1"));
+  s2 = GTK_WIDGET (g_object_get_data (G_OBJECT (paned), "s2"));
+
+  if (n == 1 && s1)
+    {
+      if (GTK_IS_CONTAINER (s1) && !(target = gtk_container_get_focus_child (GTK_CONTAINER (s1))))
+        target = gtk_widget_get_can_focus (s1) ? s1 : NULL;
+    }
+  else if (n == 2 && s2)
+    {
+      if (GTK_IS_CONTAINER (s2) && !(target = gtk_container_get_focus_child (GTK_CONTAINER (s2))))
+        target = gtk_widget_get_can_focus (s2) ? s2 : NULL;
+    }
+
+  if (target && gtk_widget_get_visible (target))
+    gtk_widget_grab_focus (target);
+  else if (options.debug)
+    g_printerr (_("WARNING: No focusable widget in pane %d\n"), n);
+}
+
 void
 paned_swallow_childs (void)
 {
@@ -91,19 +123,7 @@ paned_swallow_childs (void)
   if (options.paned_data.splitter > 0)
     gtk_paned_set_position (GTK_PANED (paned), options.paned_data.splitter);
 
-  switch (options.paned_data.focused)
-    {
-    case 1:
-      gtk_widget_child_focus (s2, GTK_DIR_TAB_FORWARD); /* keep */
-      gtk_widget_child_focus (s1, GTK_DIR_TAB_FORWARD);
-      break;
-    case 2:
-      gtk_widget_child_focus (s2, GTK_DIR_TAB_FORWARD);
-      break;
-    default:
-      if (options.debug)
-        g_printerr (_("WARNING: wrong focused pane number %d. Must be 1 or 2\n"), options.paned_data.focused);
-    }
+  paned_focus_pane (options.paned_data.focused);
 }
 
 void

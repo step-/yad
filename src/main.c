@@ -1021,6 +1021,7 @@ main (gint argc, gchar ** argv)
   if (options.plug != -1)
     {
       create_plug ();
+      form_focus_field (options.form_data.focus_field);
       gtk_main ();
       shmdt (tabs);
 #if HAVE_HTML

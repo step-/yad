@@ -654,6 +654,7 @@ gboolean file_confirm_overwrite (GtkWidget *dlg);
 void notebook_swallow_childs (void);
 void paned_swallow_childs (void);
 void picture_fit_to_window (void);
+void form_focus_field (gint);
 
 void calendar_print_result (void);
 void color_print_result (void);
