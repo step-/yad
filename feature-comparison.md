@@ -18,13 +18,18 @@ YadL is licensed under the GNU General Public License version 3 (GPLv3). Due to 
 
 ## YadL features not found in yadU
 
-YadL of its own adds the following new features, which, to the best of my knowledge, cannot be found in yadU.
-Refer to the [yadL commit log] for more details.
-See also the [Preparing yadL scripts for yadU] Wiki page.
+### Legacy features
 
-- The yadL about dialog is modified to reflect its new origin and development.
 - The yadL GTK+-3 binary still supports stock icons for buttons and image options.
 - The yadL binary still links to the GtkSpell3 spell engine.
+- YadL retains the `--image-on-top` option allowing to position the `--image` to the side (default) of the main widget. YadU discontinued this option always placing the image above the main widget.
+
+### New features
+
+The following features come from the yadL source code and, to my knowledge, are unavailable in yadU.
+Refer to the [yadL commit log] for details.
+See also the [Preparing yadL scripts for yadU] Wiki page.
+
 - YadL saves print settings to the new file `$XDG_CONFIG_HOME/yad/print.conf` ⁽⁵⁾
 - The `--icon-width=SIZE` option is a deprecated alias for `--icon-size`.
 - The new `--center-keep` option.
@@ -84,6 +89,7 @@ Abbreviations:
 
 Version ?  (yadU's current development master)
 
+- `[+]` 95c4ea7 get real return code in run_thread() [0.42.89]
 - `[+]` 4f0d5e5 Handle SIGTERM and SIGINT for clean exit [0.42.88]
 
 Version [14.2]
@@ -195,6 +201,11 @@ Version [9.1]
 
 Version [9.0]
 
+- `[+]` 8a2afc1 don't expand entry widget [0.42.89]
+- `[+]` a80c54f check for possible errors when reading calendar details file [0.42.89]
+- `[+]` 313ada9 code cleanup [0.42.89]
+- `[+]` 814a378 fix setting initial splitter position in paned dialog [0.42.89]
+- `[+]` 66a0ce3 add --focused option to paned dialog [0.42.89]
 - `[+]` 8ead6ad added enable-write-console-messages-to-stdout to html.c [0.42.87]
 - `[+]` 389ae0e add --wk-prop option to html dialog [0.42.87]
 - `[+]` add --css option (GTK+-3) [0.42.86]
@@ -397,6 +408,7 @@ See the NEWS file for older versions.
 [0.42.86]: https://github.com/step-/yad/releases/tag/0.42.86
 [0.42.87]: https://github.com/step-/yad/releases/tag/0.42.87
 [0.42.88]: https://github.com/step-/yad/releases/tag/0.42.88
+[0.42.89]: https://github.com/step-/yad/releases/tag/0.42.89
 
 [14.2]: https://github.com/v1cont/yad/releases/tag/v14.2
 [14.1]: https://github.com/v1cont/yad/releases/tag/v14.1
