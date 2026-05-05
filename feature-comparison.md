@@ -42,6 +42,7 @@ See also the [Preparing yadL scripts for yadU] Wiki page.
 - New `"expand"` type for the `--buttons-layout` option (GTK+-3 only) [0.42.86].
 - Only the GTK+-3 version of the HTML dialog is supported.
   The binary is built without hard dependency on WebKitGtk because WebKit is loaded dynamically if the `libwebkit2gtk` shared library is detected at runtime. [0.42.87]
+- The new `--print-pid` option.
 
 ## Frozen features
 

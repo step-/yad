@@ -746,6 +746,27 @@ create_dialog (void)
         gtk_window_fullscreen (GTK_WINDOW (dlg));
     }
 
+  /* print pid */
+  if (options.print_pid)
+    {
+      FILE *pf;
+
+      if (options.pid_file)
+        pf = fopen (options.pid_file, "w");
+      else
+        pf = stderr;
+
+      if (pf)
+        {
+          fprintf (pf, "%ld\n", getpid());
+
+          if (options.pid_file)
+            fclose (pf);
+          else
+            fflush (pf);
+        }
+    }
+
   /* print xid */
   if (is_x11 && options.print_xid)
     {

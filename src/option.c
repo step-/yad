@@ -47,6 +47,7 @@ static gboolean set_size (const gchar *, const gchar *, gpointer, GError **);
 static gboolean set_posx (const gchar *, const gchar *, gpointer, GError **);
 static gboolean set_posy (const gchar *, const gchar *, gpointer, GError **);
 #ifndef G_OS_WIN32
+static gboolean set_pid_file (const gchar *, const gchar *, gpointer, GError **);
 static gboolean set_xid_file (const gchar *, const gchar *, gpointer, GError **);
 static gboolean parse_signal (const gchar *, const gchar *, gpointer, GError **);
 #endif
@@ -187,6 +188,8 @@ static GOptionEntry general_options[] = {
 #ifndef G_OS_WIN32
   { "kill-parent", 0, G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, parse_signal,
     N_("Send SIGNAL to parent"), N_("[SIGNAL]") },
+  { "print-pid", 0, G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, set_pid_file,
+    N_("Print yad process Id to the file/stderr"), N_("[FILENAME]") },
   { "print-xid", 0, G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, set_xid_file,
     N_("Print X Window Id to the file/stderr"), N_("[FILENAME]") },
 #endif
@@ -1360,6 +1363,16 @@ set_form_output_prefix (const gchar * option_name, const gchar * value, gpointer
 
 #ifndef G_OS_WIN32
 static gboolean
+set_pid_file (const gchar * option_name, const gchar * value, gpointer data, GError ** err)
+{
+  options.print_pid = TRUE;
+  if (value && value[0])
+    options.pid_file = g_strdup (value);
+
+  return TRUE;
+}
+
+static gboolean
 set_xid_file (const gchar * option_name, const gchar * value, gpointer data, GError ** err)
 {
   options.print_xid = TRUE;
@@ -1528,6 +1541,8 @@ yad_options_init (void)
   options.gtkrc_file = NULL;
 #ifndef G_OS_WIN32
   options.kill_parent = 0;
+  options.print_pid = FALSE;
+  options.pid_file = NULL;
   options.print_xid = FALSE;
   options.xid_file = NULL;
 #endif

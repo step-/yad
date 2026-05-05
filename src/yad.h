@@ -570,6 +570,8 @@ typedef struct {
 
 #ifndef G_OS_WIN32
   guint kill_parent;
+  gboolean print_pid;
+  gchar *pid_file;
   gboolean print_xid;
   gchar *xid_file;
 #endif
